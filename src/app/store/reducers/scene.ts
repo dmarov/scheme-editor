@@ -12,7 +12,7 @@ export interface State {
 }
 
 export const initialState: State = {
-    meshGap: 15,
+    meshGap: 20,
     viewportCenter: {x: 0, y: 0},
     viewportDimensions: {x: 0, y: 0},
     cursorPosition: {x: 0, y: 0},
