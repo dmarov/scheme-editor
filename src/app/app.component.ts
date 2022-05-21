@@ -84,6 +84,14 @@ export class AppComponent implements AfterViewInit {
             }
         });
 
+        scene.addEventListener('wheel', (e) => {
+            e.preventDefault();
+
+            this.store$.dispatch(
+                SceneActions.addScaleFactor({ factor: e.deltaY * -0.01 })
+            );
+        });
+
         this.hookResizeEvent();
     }
 

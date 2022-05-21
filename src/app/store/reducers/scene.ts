@@ -11,6 +11,7 @@ export interface State {
     cursorPosition: Point;
     mouseEntered: boolean;
     mouseLeftPressed: boolean;
+    scaleFactor: number;
 }
 
 export const initialState: State = {
@@ -20,6 +21,7 @@ export const initialState: State = {
     cursorPosition: {x: 0, y: 0},
     mouseEntered: false,
     mouseLeftPressed: false,
+    scaleFactor: 1,
 };
 
 export const reducer = createReducer(
@@ -61,6 +63,12 @@ export const reducer = createReducer(
         (state, action): State => ({
             ...state,
             mouseLeftPressed: action.pressed
+        })
+    ),
+    on(SceneActions.addScaleFactor,
+        (state, action): State => ({
+            ...state,
+            scaleFactor: Math.min(Math.max(0.05, state.scaleFactor + action.factor), 10),
         })
     ),
 );

@@ -25,3 +25,8 @@ export const setMouseLeftPressed = createAction(
     '[Scene] setMouseLeftPressed',
     props<{pressed: boolean}>(),
 );
+
+export const addScaleFactor = createAction(
+    '[Scene] addScaleFactor',
+    props<{factor: number}>(),
+);
