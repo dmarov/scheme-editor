@@ -21,12 +21,22 @@ export const initialState: State = {
 export const reducer = createReducer(
     initialState,
     on(SceneActions.setCursorPosition,
-        (state, action): State => ({ ...state, cursorPosition: action.position })
+        (state, action): State => ({
+            ...state,
+            cursorPosition: action.position
+        })
     ),
     on(SceneActions.setViewportCenter,
-        (state, action): State => ({ ...state, viewportCenter: action.center })
+        (state, action): State => ({
+            ...state,
+            viewportCenter: action.center
+        })
     ),
     on(SceneActions.setViewportDimensions,
-        (state, action): State => ({ ...state, viewportDimensions: action.dimensions })
+        (state, action): State => ({
+            ...state,
+            viewportDimensions: action.dimensions,
+            viewportCenter: { x: action.dimensions.x / 2, y: action.dimensions.y / 2 },
+        })
     ),
 );
