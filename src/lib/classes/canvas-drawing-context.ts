@@ -7,10 +7,21 @@ export class CanvasDrawingContext implements DrawingContext {
         private readonly ctx: CanvasRenderingContext2D,
     ) { }
 
-    line(start: Point, end: Point) {
+    color(color: string): DrawingContext {
+        this.ctx.fillStyle = color;
+        return this;
+    }
+
+    width(width: number): DrawingContext {
+        this.ctx.lineWidth = width;
+        return this;
+    }
+
+    line(start: Point, end: Point): DrawingContext {
         this.ctx.beginPath();
         this.ctx.moveTo(start.x, start.y);
         this.ctx.lineTo(end.x, end.y);
         this.ctx.stroke();
+        return this;
     }
 }

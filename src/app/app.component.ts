@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+import { CanvasDrawingContext, DrawingContext } from '@/lib';
 
 @Component({
     selector: 'app-root',
@@ -16,6 +17,17 @@ export class AppComponent implements AfterViewInit {
 
     ngAfterViewInit(): void {
         this.watchResize();
+
+        setTimeout(() => {
+            const scene = this.scene!.nativeElement;
+            const ctx = scene.getContext('2d');
+            const drawingCtx: DrawingContext = new CanvasDrawingContext(ctx!);
+            drawingCtx
+                .color("#000000")
+                .width(14)
+                .line({x: 100, y: 100}, {x: 500, y: 500});
+        }, 1000);
+
     }
 
     watchResize(): void {
