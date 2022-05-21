@@ -41,8 +41,6 @@ export class Mesh implements Drawable {
     }
 
     private drawPrimaryLines(ctx: DrawingContext) {
-        const prevOrigin = ctx.getOrigin();
-
         ctx.width(2)
             .origin(this.meshOrigin)
             .color(this.primaryColor)
@@ -58,14 +56,12 @@ export class Mesh implements Drawable {
             }, {
                 x: this.viewportDimensions.x - this.meshOrigin.x,
                 y: 0,
-            })
-            .origin(prevOrigin);
+            });
     }
 
     private drawVerticalLines(ctx: DrawingContext, color: string, vertCnt: number, density: number) {
         const count = Math.ceil(vertCnt / density);
         const offsetX = Math.ceil(this.meshOrigin.x / this.meshGap / density);
-        const prevOrigin = ctx.getOrigin();
 
         for (let i = 0; i < count ; i++) {
             ctx.color(color)
@@ -76,15 +72,13 @@ export class Mesh implements Drawable {
                 }, {
                     x: (i - offsetX) * this.meshGap * density,
                     y: -this.meshOrigin.y + this.viewportDimensions.y,
-                })
-                .origin(prevOrigin);
+                });
         }
     }
 
     private drawHorizontalLines(ctx: DrawingContext, color: string, horCnt: number, density: number) {
         const length = Math.ceil(horCnt / density);
         const offsetY = Math.ceil(this.meshOrigin.y / this.meshGap / density);
-        const prevOrigin = ctx.getOrigin();
 
         for (let i = 0; i < length; i++) {
             ctx.color(color)
@@ -95,8 +89,7 @@ export class Mesh implements Drawable {
                 }, {
                     x: -this.meshOrigin.x + this.viewportDimensions.x,
                     y: (i - offsetY) * this.meshGap * density,
-                })
-                .origin(prevOrigin);
+                });
         }
     }
 }
