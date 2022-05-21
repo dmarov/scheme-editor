@@ -34,20 +34,22 @@ export class Mesh implements Drawable {
 
     private drawPrimaryLines(ctx: DrawingContext) {
         ctx.width(2)
+            .origin(this.meshOrigin)
             .color(this.primaryColor)
             .line({
-                x: this.meshOrigin.x,
-                y: 0
-            }, {
-                x: this.meshOrigin.x,
-                y: this.viewportDimensions.y,
-            }).line({
                 x: 0,
-                y: this.meshOrigin.y,
+                y: -this.meshOrigin.y,
             }, {
-                x: this.viewportDimensions.x,
-                y: this.meshOrigin.y,
-            });
+                x: 0,
+                y: this.viewportDimensions.y - this.meshOrigin.y,
+            }).line({
+                x: -this.meshOrigin.x,
+                y: 0,
+            }, {
+                x: this.viewportDimensions.x - this.meshOrigin.x,
+                y: 0,
+            })
+            .origin({x: 0, y: 0});
     }
 
     private drawVerticalLines(ctx: DrawingContext, color: string, vertCnt: number, density: number) {
@@ -56,13 +58,15 @@ export class Mesh implements Drawable {
 
         for (let i = 0; i < count ; i++) {
             ctx.color(color)
+                .origin(this.meshOrigin)
                 .line({
-                    x: this.meshOrigin.x + (i - offsetX) * this.meshGap * density,
-                    y: 0
+                    x: (i - offsetX) * this.meshGap * density,
+                    y: -this.meshOrigin.y
                 }, {
-                    x: this.meshOrigin.x + (i - offsetX) * this.meshGap * density,
-                    y: this.viewportDimensions.y,
-                });
+                    x: (i - offsetX) * this.meshGap * density,
+                    y: -this.meshOrigin.y + this.viewportDimensions.y,
+                })
+                .origin({x: 0, y: 0});
         }
     }
 
@@ -72,13 +76,15 @@ export class Mesh implements Drawable {
 
         for (let i = 0; i < length; i++) {
             ctx.color(color)
+                .origin(this.meshOrigin)
                 .line({
-                    x: 0,
-                    y: this.meshOrigin.y + (i - offsetY) * this.meshGap * density,
+                    x: -this.meshOrigin.x,
+                    y: (i - offsetY) * this.meshGap * density,
                 }, {
-                    x: this.viewportDimensions.x,
-                    y: this.meshOrigin.y + (i - offsetY) * this.meshGap * density,
-                });
+                    x: -this.meshOrigin.x + this.viewportDimensions.x,
+                    y: (i - offsetY) * this.meshGap * density,
+                })
+                .origin({x: 0, y: 0});
         }
     }
 }

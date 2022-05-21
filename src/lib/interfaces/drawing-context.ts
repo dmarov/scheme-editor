@@ -7,4 +7,5 @@ export interface DrawingContext {
     clear(): DrawingContext;
     dimensions(dimensions: Point): DrawingContext;
     rect(origin: Point, width: number, height: number): DrawingContext;
+    origin(origin: Point): DrawingContext;
 }
