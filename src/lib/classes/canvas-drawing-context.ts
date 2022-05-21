@@ -48,4 +48,8 @@ export class CanvasDrawingContext implements DrawingContext {
         this.originPoint = origin;
         return this;
     }
+
+    getOrigin() {
+        return this.originPoint;
+    }
 }

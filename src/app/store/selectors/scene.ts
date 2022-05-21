@@ -1,4 +1,4 @@
-import { Collection, Square } from '@/lib/classes';
+import { Collection, ShiftedLayer, Square } from '@/lib/classes';
 import { Mesh } from '@/lib/classes/mesh';
 import { Drawable } from '@/lib/interfaces';
 import { Point } from '@/lib/models';
@@ -21,9 +21,11 @@ export const selectRenderingModel = createSelector(
             '#c4c2c2',
         );
 
-        const sq = new Square(state.meshOrigin, new Point(50, 50), 100, '#000000');
+        const sq = new Square(new Point(50, 50), 100, '#000000');
 
-        return new Collection([mesh, sq])
+        const collection = new Collection([mesh, sq]);
+
+        return new ShiftedLayer(state.meshOrigin, collection);
     }
 );
 
