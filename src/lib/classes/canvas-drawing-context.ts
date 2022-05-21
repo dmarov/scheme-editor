@@ -30,6 +30,7 @@ export class CanvasDrawingContext implements DrawingContext {
 
     clear() {
         this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
+        this.ctx.scale(1, 1);
         return this;
     }
 
@@ -46,6 +47,11 @@ export class CanvasDrawingContext implements DrawingContext {
 
     origin(origin: Point) {
         this.originPoint = origin;
+        return this;
+    }
+
+    scale(factor: number) {
+        this.ctx.scale(factor, factor);
         return this;
     }
 

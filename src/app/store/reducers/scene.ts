@@ -73,10 +73,10 @@ export const reducer = createReducer(
             mouseLeftPressed: action.pressed
         })
     ),
-    on(SceneActions.addScaleFactor,
+    on(SceneActions.setScaleFactor,
         (state, action): State => ({
             ...state,
-            scaleFactor: Math.min(Math.max(0.05, state.scaleFactor + action.factor), 10),
+            scaleFactor: Math.min(Math.max(0.05, action.factor), 10),
         })
     ),
     on(SceneActions.addPressedKey,

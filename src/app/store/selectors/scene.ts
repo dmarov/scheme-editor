@@ -1,4 +1,4 @@
-import { Collection, ShiftedLayer, Square } from '@/lib/classes';
+import { Collection, ScaledLayer, ShiftedLayer, Square } from '@/lib/classes';
 import { Mesh } from '@/lib/classes/mesh';
 import { Drawable } from '@/lib/interfaces';
 import { Point } from '@/lib/models';
@@ -25,8 +25,9 @@ export const selectRenderingModel = createSelector(
         const sq2 = new Square(new Point(150, -150), 100, state.extraColor, state.secondaryColor);
 
         const collection = new Collection([mesh, sq1, sq2]);
-
-        return new ShiftedLayer(state.meshOrigin, collection);
+        const shl = new ShiftedLayer(state.meshOrigin, collection);
+        const scl = new ScaledLayer(state.scaleFactor, shl);
+        return scl;
     }
 );
 
@@ -39,5 +40,11 @@ export const selectViewportDimensions = createSelector(
 export const selectCtrlPressed = createSelector(
     selectState, (state): boolean => {
         return state.pressedKeys.includes("ControlLeft");
+    }
+);
+
+export const selectScaleFactor = createSelector(
+    selectState, (state): number => {
+        return state.scaleFactor;
     }
 );

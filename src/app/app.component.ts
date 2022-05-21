@@ -86,15 +86,16 @@ export class AppComponent implements AfterViewInit {
 
         fromEvent<WheelEvent>(scene, 'wheel').pipe(
             withLatestFrom(
-                this.store$.pipe(select(SceneSelectors.selectCtrlPressed))
+                this.store$.pipe(select(SceneSelectors.selectCtrlPressed)),
+                this.store$.pipe(select(SceneSelectors.selectScaleFactor)),
             ),
             tap(([e]) => {
                 e.preventDefault();
             }),
             filter(([, pressed]) => pressed),
-        ).subscribe(([e,]) => {
+        ).subscribe(([e,,factor]) => {
             this.store$.dispatch(
-                SceneActions.addScaleFactor({ factor: e.deltaY * 0.001 })
+                SceneActions.setScaleFactor({ factor: factor + e.deltaY * 0.001 })
             );
         });
 

@@ -8,6 +8,7 @@ export interface DrawingContext {
     dimensions(dimensions: Point): DrawingContext;
     rect(origin: Point, width: number, height: number): DrawingContext;
     origin(origin: Point): DrawingContext;
+    scale(factor: number): DrawingContext;
     getOrigin(): Point;
     getWidth(): number;
 }
