@@ -42,7 +42,6 @@ export class Mesh implements Drawable {
 
     private drawPrimaryLines(ctx: DrawingContext) {
         ctx.width(2)
-            .origin(this.meshOrigin)
             .color(this.primaryColor)
             .line({
                 x: 0,
@@ -65,7 +64,6 @@ export class Mesh implements Drawable {
 
         for (let i = 0; i < count ; i++) {
             ctx.color(color)
-                .origin(this.meshOrigin)
                 .line({
                     x: (i - offsetX) * this.meshGap * density,
                     y: -this.meshOrigin.y
@@ -82,7 +80,6 @@ export class Mesh implements Drawable {
 
         for (let i = 0; i < length; i++) {
             ctx.color(color)
-                .origin(this.meshOrigin)
                 .line({
                     x: -this.meshOrigin.x,
                     y: (i - offsetY) * this.meshGap * density,
