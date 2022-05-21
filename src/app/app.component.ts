@@ -10,6 +10,10 @@ export class AppComponent implements AfterViewInit {
     @ViewChild('canvas')
     scene: ElementRef<HTMLCanvasElement> | null = null;
 
+    constructor(
+        private readonly hostRef: ElementRef,
+    ) { }
+
     ngAfterViewInit(): void {
         this.watchResize();
     }
@@ -17,18 +21,18 @@ export class AppComponent implements AfterViewInit {
     watchResize(): void {
         const observer = new ResizeObserver(entries => {
             entries.forEach(entry => {
-                this.setSceneSize(entry.contentRect.width, entry.contentRect.height)
+                this.setSceneSize(entry.contentRect.width, entry.contentRect.height);
             });
         });
 
-        observer.observe(this.scene!.nativeElement);
+        observer.observe(this.hostRef.nativeElement);
 
-        this.setSceneSize(this.scene!.nativeElement.clientWidth, this.scene!.nativeElement.clientHeight);
+        this.setSceneSize(this.hostRef.nativeElement.clientWidth, this.hostRef.nativeElement.clientHeight);
     }
 
     setSceneSize(width: number, height: number): void {
         const scene = this.scene!.nativeElement;
-        const ctx = scene.getContext("2d");
+        const ctx = scene.getContext('2d');
         ctx!.canvas.width = Math.ceil(width);
         ctx!.canvas.height = Math.ceil(height);
     }
