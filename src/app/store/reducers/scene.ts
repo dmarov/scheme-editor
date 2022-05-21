@@ -25,10 +25,19 @@ export const initialState: State = {
 export const reducer = createReducer(
     initialState,
     on(SceneActions.setCursorPosition,
-        (state, action): State => ({
-            ...state,
-            cursorPosition: action.position,
-        })
+        (state, action): State => {
+            const dx = state.mouseLeftPressed ? action.position.x - state.cursorPosition.x : 0;
+            const dy = state.mouseLeftPressed ? action.position.y - state.cursorPosition.y : 0;
+
+            return {
+                ...state,
+                cursorPosition: action.position,
+                viewportCenter: {
+                    x: state.viewportCenter.x - dx,
+                    y: state.viewportCenter.y + dy,
+                }
+            };
+        }
     ),
     on(SceneActions.setViewportCenter,
         (state, action): State => ({
