@@ -1,6 +1,7 @@
+import { Collection } from '@/lib/classes';
 import { Mesh } from '@/lib/classes/mesh';
 import { Drawable } from '@/lib/interfaces';
-import {Point} from '@/lib/models';
+import { Point } from '@/lib/models';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { State, featureKey } from '../reducers/scene';
 
@@ -10,7 +11,8 @@ export const selectState = createFeatureSelector<State>(
 
 export const selectRenderingModel = createSelector(
     selectState, (state): Drawable => {
-        return new Mesh(
+
+        const mesh = new Mesh(
             state.meshOrigin,
             state.viewportDimensions,
             state.meshGap,
@@ -18,6 +20,9 @@ export const selectRenderingModel = createSelector(
             '#616161',
             '#c4c2c2',
         );
+
+        return new Collection([mesh])
+
     }
 );
 
