@@ -5,6 +5,7 @@ import { SceneActions } from '@/app/store/actions';
 import { Point } from '@/app/models';
 import { SceneSelectors } from './store/selectors';
 import { SceneReducers } from './store/reducers';
+import {Drawable} from '@/lib/interfaces';
 
 @Component({
     selector: 'app-root',
@@ -24,6 +25,24 @@ export class AppComponent implements AfterViewInit {
     ) { }
 
     ngAfterViewInit(): void {
+        this.hookUserEvents();
+
+        this.store$.pipe(
+            select(SceneSelectors.selectRenderingModel)
+        ).subscribe((model) => {
+            this.drawScene(model);
+        });
+
+        this.store$.pipe(
+            select(SceneSelectors.selectViewportDimensions)
+        ).subscribe((dimensions) => {
+            this.drawingCtx!.dimensions(dimensions);
+        });
+
+        this.setSceneSize(this.scene!.nativeElement.clientWidth, this.scene!.nativeElement.clientHeight);
+    }
+
+    hookUserEvents(): void {
         const scene = this.scene!.nativeElement;
         const ctx = scene.getContext('2d');
         this.drawingCtx = new CanvasDrawingContext(ctx!);
@@ -35,16 +54,6 @@ export class AppComponent implements AfterViewInit {
             );
         });
 
-        this.hookCanvasResizeEvent();
-
-        this.store$.pipe(
-            select(SceneSelectors.selectState)
-        ).subscribe((state) => {
-            this.drawScene(state);
-        });
-    }
-
-    hookCanvasResizeEvent(): void {
         const observer = new ResizeObserver(entries => {
             entries.forEach(entry => {
                 this.setSceneSize(entry.contentRect.width, entry.contentRect.height);
@@ -52,7 +61,6 @@ export class AppComponent implements AfterViewInit {
         });
 
         observer.observe(this.hostRef.nativeElement);
-        this.setSceneSize(this.scene!.nativeElement.clientWidth, this.scene!.nativeElement.clientHeight);
     }
 
     setSceneSize(width: number, height: number): void {
@@ -62,15 +70,7 @@ export class AppComponent implements AfterViewInit {
         );
     }
 
-    drawScene(state: SceneReducers.State) {
-        const centerX = state.viewportDimensions.x / 2;
-        const centerY = state.viewportDimensions.y / 2;
-
-        this.drawingCtx!
-            .dimensions(state.viewportDimensions)
-            .color("#000000")
-            .width(1)
-            .line({x: centerX, y: 0}, {x: centerX, y: state.viewportDimensions.y})
-            .line({x: 0, y: centerY}, {x: state.viewportDimensions.x, y: centerY});
+    drawScene(model: Drawable) {
+        model.draw(this.drawingCtx!);
     }
 }

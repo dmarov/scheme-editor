@@ -9,6 +9,9 @@ export class Mesh implements Drawable {
     ) { }
 
     draw(ctx: DrawingContext): void {
-
+        ctx.color("#000000")
+            .width(1)
+            .line({x: this.viewportCenter.x, y: 0}, {x: this.viewportCenter.x, y: this.viewportDimensions.y})
+            .line({x: 0, y: this.viewportCenter.y}, {x: this.viewportDimensions.x, y: this.viewportCenter.y});
     }
 }
