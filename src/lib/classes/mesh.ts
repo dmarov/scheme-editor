@@ -17,8 +17,8 @@ export class Mesh implements Drawable {
         const horCnt = Math.ceil(this.viewportDimensions.y / this.meshGap / 2) + 1;
         const vertCnt = Math.ceil(this.viewportDimensions.x / this.meshGap / 2) + 1;
 
-        this.drawExtraLines(ctx, horCnt, vertCnt);
-        this.drawSecondaryLines(ctx, horCnt, vertCnt);
+        // this.drawExtraLines(ctx, horCnt, vertCnt);
+        // this.drawSecondaryLines(ctx, horCnt, vertCnt);
         this.drawPrimaryLines(ctx);
     }
 
@@ -33,19 +33,20 @@ export class Mesh implements Drawable {
     }
 
     private drawPrimaryLines(ctx: DrawingContext) {
-        ctx.color(this.primaryColor)
+        ctx.width(2)
+            .color(this.primaryColor)
             .line({
-                x: this.viewportDimensions.x / 2,
+                x: - (this.viewportCenter.x - this.viewportDimensions.x / 2),
                 y: 0
             }, {
-                x: this.viewportDimensions.x / 2,
+                x: - (this.viewportCenter.x - this.viewportDimensions.x / 2),
                 y: this.viewportDimensions.y,
             }).line({
                 x: 0,
-                y: this.viewportDimensions.y / 2,
+                y: this.viewportCenter.y - this.viewportDimensions.y / 2,
             }, {
                 x: this.viewportDimensions.x,
-                y: this.viewportDimensions.y / 2,
+                y: this.viewportCenter.y - this.viewportDimensions.y / 2,
             });
     }
 
@@ -55,11 +56,11 @@ export class Mesh implements Drawable {
         for (let i = -length; i < length; i++) {
             ctx.color(color)
                 .line({
-                    x: centerX + i * this.meshGap * density,
-                    y: 0
+                    x: this.viewportCenter.x + centerX + i * this.meshGap * density,
+                    y: this.viewportCenter.y - this.viewportDimensions.y / 2
                 }, {
-                    x: centerX + i * this.meshGap * density,
-                    y: this.viewportDimensions.y
+                    x: this.viewportCenter.x + centerX + i * this.meshGap * density,
+                    y: this.viewportCenter.y + this.viewportDimensions.y / 2
                 });
         }
     }
@@ -71,11 +72,11 @@ export class Mesh implements Drawable {
         for (let i = -length; i < length; i++) {
             ctx.color(color)
                 .line({
-                    x: 0,
-                    y: centerY + i * this.meshGap * density
+                    x: this.viewportCenter.x - this.viewportDimensions.x / 2,
+                    y: this.viewportCenter.y + centerY + i * this.meshGap * density
                 }, {
-                    x: this.viewportDimensions.x,
-                    y: centerY + i * this.meshGap * density
+                    x: this.viewportCenter.x + this.viewportDimensions.x / 2,
+                    y: this.viewportCenter.y + centerY + i * this.meshGap * density
                 });
         }
     }

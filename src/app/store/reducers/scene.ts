@@ -15,7 +15,7 @@ export interface State {
 
 export const initialState: State = {
     meshGap: 20,
-    viewportCenter: {x: 0, y: 0},
+    viewportCenter: {x: 700, y: 700},
     viewportDimensions: {x: 0, y: 0},
     cursorPosition: {x: 0, y: 0},
     mouseEntered: false,
@@ -40,10 +40,6 @@ export const reducer = createReducer(
         (state, action): State => ({
             ...state,
             viewportDimensions: action.dimensions,
-            viewportCenter: {
-                x: Math.floor(action.dimensions.x / 2),
-                y: Math.floor(action.dimensions.y / 2),
-            },
         })
     ),
     on(SceneActions.setMouseEntered,
