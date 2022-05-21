@@ -35,7 +35,10 @@
             "style": "kebab-case"
           }
         ],
-        "indent": ["error", 4]
+        "indent": [
+          "error",
+          4
+        ]
       }
     },
     {
@@ -46,6 +49,14 @@
         "plugin:@angular-eslint/template/recommended"
       ],
       "rules": {}
+    },
+    {
+      "files": [
+        "*.ts"
+      ],
+      "extends": [
+        "plugin:ngrx/recommended"
+      ]
     }
   ]
 }

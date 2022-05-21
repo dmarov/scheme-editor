@@ -24,4 +24,9 @@ export class CanvasDrawingContext implements DrawingContext {
         this.ctx.stroke();
         return this;
     }
+
+    clear() {
+        this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
+        return this;
+    }
 }
