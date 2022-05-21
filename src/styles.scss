@@ -13,6 +13,7 @@ body {
 .app {
     flex-grow: 1;
     position: relative;
+    overflow: hidden;
 
     &__scene {
         position: absolute;

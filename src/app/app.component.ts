@@ -11,23 +11,17 @@ export class AppComponent implements AfterViewInit {
     @ViewChild('canvas')
     scene: ElementRef<HTMLCanvasElement> | null = null;
 
+    drawingCtx: DrawingContext | null = null;
+
     constructor(
         private readonly hostRef: ElementRef,
     ) { }
 
     ngAfterViewInit(): void {
+        const scene = this.scene!.nativeElement;
+        const ctx = scene.getContext('2d');
+        this.drawingCtx = new CanvasDrawingContext(ctx!);
         this.watchResize();
-
-        setTimeout(() => {
-            const scene = this.scene!.nativeElement;
-            const ctx = scene.getContext('2d');
-            const drawingCtx: DrawingContext = new CanvasDrawingContext(ctx!);
-            drawingCtx
-                .color("#000000")
-                .width(14)
-                .line({x: 100, y: 100}, {x: 500, y: 500});
-        }, 1000);
-
     }
 
     watchResize(): void {
@@ -40,12 +34,21 @@ export class AppComponent implements AfterViewInit {
         observer.observe(this.hostRef.nativeElement);
 
         this.setSceneSize(this.hostRef.nativeElement.clientWidth, this.hostRef.nativeElement.clientHeight);
+        this.drawScene();
     }
 
     setSceneSize(width: number, height: number): void {
         const scene = this.scene!.nativeElement;
         const ctx = scene.getContext('2d');
-        ctx!.canvas.width = Math.ceil(width);
-        ctx!.canvas.height = Math.ceil(height);
+        ctx!.canvas.width = Math.floor(width);
+        ctx!.canvas.height = Math.floor(height);
+        this.drawScene();
+    }
+
+    drawScene() {
+        this.drawingCtx!
+            .color("#000000")
+            .width(14)
+            .line({x: 100, y: 100}, {x: 500, y: 500});
     }
 }
