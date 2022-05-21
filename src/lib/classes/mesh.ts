@@ -18,7 +18,7 @@ export class Mesh implements Drawable {
         const vertCnt = Math.ceil(this.viewportDimensions.x / this.meshGap) + 1;
 
         this.drawExtraLines(ctx, horCnt, vertCnt);
-        // this.drawSecondaryLines(ctx, horCnt, vertCnt);
+        this.drawSecondaryLines(ctx, horCnt, vertCnt);
         this.drawPrimaryLines(ctx);
     }
 
@@ -52,7 +52,7 @@ export class Mesh implements Drawable {
 
     private drawVerticalLines(ctx: DrawingContext, color: string, vertCnt: number, density: number) {
         const count = Math.ceil(vertCnt / density);
-        const offsetX = Math.ceil(this.meshOrigin.x / this.meshGap);
+        const offsetX = Math.ceil(this.meshOrigin.x / this.meshGap / density);
 
         for (let i = 0; i < count ; i++) {
             ctx.color(color)
@@ -68,7 +68,7 @@ export class Mesh implements Drawable {
 
     private drawHorizontalLines(ctx: DrawingContext, color: string, horCnt: number, density: number) {
         const length = Math.ceil(horCnt / density);
-        const offsetY = Math.ceil(this.meshOrigin.y / this.meshGap);
+        const offsetY = Math.ceil(this.meshOrigin.y / this.meshGap / density);
 
         for (let i = 0; i < length; i++) {
             ctx.color(color)
