@@ -5,4 +5,5 @@ export interface DrawingContext {
     color(color: string): DrawingContext;
     width(width: number): DrawingContext;
     clear(): DrawingContext;
+    dimensions(dimensions: Point): DrawingContext;
 }

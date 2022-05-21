@@ -29,4 +29,10 @@ export class CanvasDrawingContext implements DrawingContext {
         this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
         return this;
     }
+
+    dimensions(dimensions: Point) {
+        this.ctx.canvas.width = dimensions.x;
+        this.ctx.canvas.height = dimensions.y;
+        return this;
+    }
 }
