@@ -6,7 +6,7 @@ export const featureKey = 'scene';
 
 export interface State {
     meshGap: number,
-    viewportPivot: Point;
+    meshOrigin: Point;
     viewportDimensions: Point,
     cursorPosition: Point;
     mouseEntered: boolean;
@@ -15,7 +15,7 @@ export interface State {
 
 export const initialState: State = {
     meshGap: 20,
-    viewportPivot: {x: 100, y: 100},
+    meshOrigin: {x: 100, y: 100},
     viewportDimensions: {x: 0, y: 0},
     cursorPosition: {x: 0, y: 0},
     mouseEntered: false,
@@ -32,9 +32,9 @@ export const reducer = createReducer(
             return {
                 ...state,
                 cursorPosition: action.position,
-                viewportPivot: {
-                    x: state.viewportPivot.x + dx,
-                    y: state.viewportPivot.y + dy,
+                meshOrigin: {
+                    x: state.meshOrigin.x + dx,
+                    y: state.meshOrigin.y + dy,
                 }
             };
         }
@@ -42,7 +42,7 @@ export const reducer = createReducer(
     on(SceneActions.setViewportCenter,
         (state, action): State => ({
             ...state,
-            viewportPivot: action.center
+            meshOrigin: action.center
         })
     ),
     on(SceneActions.setViewportDimensions,

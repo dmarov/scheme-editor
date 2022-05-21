@@ -11,7 +11,7 @@ export const selectState = createFeatureSelector<State>(
 export const selectRenderingModel = createSelector(
     selectState, (state): Drawable => {
         return new Mesh(
-            state.viewportPivot,
+            state.meshOrigin,
             state.viewportDimensions,
             state.meshGap,
             '#000000',

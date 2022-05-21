@@ -4,7 +4,7 @@ import { Point } from "@/lib/models";
 export class Mesh implements Drawable {
 
     constructor(
-        private readonly viewportCenter: Point,
+        private readonly meshOrigin: Point,
         private readonly viewportDimensions: Point,
         private readonly meshGap: number,
         private readonly primaryColor: string,
@@ -14,8 +14,8 @@ export class Mesh implements Drawable {
 
     draw(ctx: DrawingContext): void {
         ctx.width(1);
-        const horCnt = Math.ceil(this.viewportDimensions.y / this.meshGap / 2) + 1;
-        const vertCnt = Math.ceil(this.viewportDimensions.x / this.meshGap / 2) + 1;
+        const horCnt = Math.ceil(this.viewportDimensions.y / this.meshGap) + 1;
+        const vertCnt = Math.ceil(this.viewportDimensions.x / this.meshGap) + 1;
 
         // this.drawExtraLines(ctx, horCnt, vertCnt);
         // this.drawSecondaryLines(ctx, horCnt, vertCnt);
@@ -36,54 +36,54 @@ export class Mesh implements Drawable {
         ctx.width(2)
             .color(this.primaryColor)
             .line({
-                x: this.viewportCenter.x,
+                x: this.meshOrigin.x,
                 y: 0
             }, {
-                x: this.viewportCenter.x,
+                x: this.meshOrigin.x,
                 y: this.viewportDimensions.y,
             }).line({
                 x: 0,
-                y: this.viewportCenter.y,
+                y: this.meshOrigin.y,
             }, {
                 x: this.viewportDimensions.x,
-                y: this.viewportCenter.y,
+                y: this.meshOrigin.y,
             });
     }
 
     private drawVerticalLines(ctx: DrawingContext, color: string, vertCnt: number, density: number) {
-        const centerX = this.viewportCenter.x;
+        const centerX = this.meshOrigin.x;
         const length = Math.ceil(vertCnt / density);
-        for (let i = -length; i < length; i++) {
+        for (let i = 0; i < length; i++) {
             ctx.color(color)
                 .line({
-                    x: this.viewportCenter.x + this.viewportDimensions.x / 2 + i * this.meshGap * density,
+                    x: this.meshOrigin.x + i * this.meshGap * density,
                     y: 0
                 }, {
-                    x: this.viewportCenter.x + this.viewportDimensions.x / 2 + i * this.meshGap * density,
+                    x: this.meshOrigin.x + i * this.meshGap * density,
                     y: this.viewportDimensions.y,
                 });
                 // .line({
-                //     x: this.viewportCenter.x + i * this.meshGap * density,
-                //     y: this.viewportCenter.y - this.viewportDimensions.y / 2
+                //     x: this.meshOrigin.x + i * this.meshGap * density,
+                //     y: this.meshOrigin.y - this.viewportDimensions.y / 2
                 // }, {
-                //     x: this.viewportCenter.x + i * this.meshGap * density,
-                //     y: this.viewportCenter.y + this.viewportDimensions.y / 2
+                //     x: this.meshOrigin.x + i * this.meshGap * density,
+                //     y: this.meshOrigin.y + this.viewportDimensions.y / 2
                 // });
         }
     }
 
     private drawHorizontalLines(ctx: DrawingContext, color: string, horCnt: number, density: number) {
-        const centerY = this.viewportCenter.y;
+        const centerY = this.meshOrigin.y;
         const length = Math.ceil(horCnt / density);
 
-        for (let i = -length; i < length; i++) {
+        for (let i = 0; i < length; i++) {
             ctx.color(color)
                 .line({
-                    x: this.viewportCenter.x + this.viewportDimensions.x / 2,
-                    y: this.viewportCenter.y + centerY + i * this.meshGap * density
+                    x: this.meshOrigin.x + this.viewportDimensions.x / 2,
+                    y: this.meshOrigin.y + centerY + i * this.meshGap * density
                 }, {
-                    x: this.viewportCenter.x + this.viewportDimensions.x / 2,
-                    y: this.viewportCenter.y + centerY + i * this.meshGap * density
+                    x: this.meshOrigin.x + this.viewportDimensions.x / 2,
+                    y: this.meshOrigin.y + centerY + i * this.meshGap * density
                 });
         }
     }
