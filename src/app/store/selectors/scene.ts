@@ -23,7 +23,7 @@ export const selectRenderingModel = createSelector(
 
         const squares: Square[] = [];
 
-        for (const sq of state.squares) {
+        for (const sq of Object.values(state.squares)) {
             const origin = new Point(sq.origin.x, sq.origin.y)
             squares.push(new Square(origin, 100, state.extraColor, state.secondaryColor))
         }
