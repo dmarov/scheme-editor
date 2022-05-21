@@ -5,7 +5,7 @@ import { SceneActions } from '@/app/store/actions';
 import { Point } from '@/app/models';
 import { SceneSelectors } from './store/selectors';
 import { Drawable } from '@/lib/interfaces';
-import { withLatestFrom } from 'rxjs';
+import { filter, fromEvent, tap, withLatestFrom } from 'rxjs';
 
 @Component({
     selector: 'app-root',
@@ -84,11 +84,17 @@ export class AppComponent implements AfterViewInit {
             }
         });
 
-        scene.addEventListener('wheel', (e) => {
-            e.preventDefault();
-
+        fromEvent<WheelEvent>(scene, 'wheel').pipe(
+            withLatestFrom(
+                this.store$.pipe(select(SceneSelectors.selectCtrlPressed))
+            ),
+            tap(([e]) => {
+                e.preventDefault();
+            }),
+            filter(([, pressed]) => pressed),
+        ).subscribe(([e,]) => {
             this.store$.dispatch(
-                SceneActions.addScaleFactor({ factor: e.deltaY * -0.01 })
+                SceneActions.addScaleFactor({ factor: e.deltaY * 0.001 })
             );
         });
 
@@ -105,6 +111,7 @@ export class AppComponent implements AfterViewInit {
                 SceneActions.removePressedKey({code: e.code})
             );
         });
+
         this.hookResizeEvent();
     }
 

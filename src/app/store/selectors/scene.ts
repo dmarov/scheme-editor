@@ -32,3 +32,9 @@ export const selectViewportDimensions = createSelector(
         return state.viewportDimensions;
     }
 );
+
+export const selectCtrlPressed = createSelector(
+    selectState, (state): boolean => {
+        return state.pressedKeys.includes("ControlLeft");
+    }
+);
