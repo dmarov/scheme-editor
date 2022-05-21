@@ -1,3 +1,4 @@
+import { Square } from '@/app/models';
 import { Point } from '@/lib/models';
 import { createReducer, on } from '@ngrx/store';
 import { SceneActions } from '../actions';
@@ -5,6 +6,7 @@ import { SceneActions } from '../actions';
 export const featureKey = 'scene';
 
 export interface State {
+    squares: Square[];
     primaryColor: string,
     secondaryColor: string,
     extraColor: string,
@@ -19,6 +21,14 @@ export interface State {
 }
 
 export const initialState: State = {
+    squares: [
+        {
+            origin: {x: 50, y: 50}, size: 100,
+        },
+        {
+            origin: {x: 150, y: -150}, size: 100,
+        },
+    ],
     primaryColor: '#000000',
     secondaryColor: '#616161',
     extraColor: '#c4c2c2',

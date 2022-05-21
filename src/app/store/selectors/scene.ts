@@ -21,16 +21,17 @@ export const selectRenderingModel = createSelector(
             state.extraColor,
         );
 
-        const sq1 = new Square(new Point(50, 50), 100, state.extraColor, state.secondaryColor);
-        const sq2 = new Square(new Point(150, -150), 100, state.extraColor, state.secondaryColor);
-        const sqs = new Collection([sq1, sq2]);
+        const squares: Square[] = [];
+
+        for (const sq of state.squares) {
+            const origin = new Point(sq.origin.x, sq.origin.y)
+            squares.push(new Square(origin, 100, state.extraColor, state.secondaryColor))
+        }
+
+        const sqs = new Collection(squares);
 
         const shl = new ShiftedLayer(state.meshOrigin, sqs);
-        const scl = new ScaledLayer({
-            x: state.meshOrigin.x - state.viewportDimensions.x / 2,
-            y: state.meshOrigin.y - state.viewportDimensions.y / 2,
-        }, state.scaleFactor, shl);
-
+        // TODO: implement scale
         const collection = new Collection([mesh, shl]);
 
         return collection;
@@ -52,5 +53,14 @@ export const selectCtrlPressed = createSelector(
 export const selectScaleFactor = createSelector(
     selectState, (state): number => {
         return state.scaleFactor;
+    }
+);
+
+export const selectRenderingSize = createSelector(
+    selectState, (state): Point => {
+        return new Point(
+            state.viewportDimensions.x * state.scaleFactor,
+            state.viewportDimensions.y * state.scaleFactor,
+        );
     }
 );
