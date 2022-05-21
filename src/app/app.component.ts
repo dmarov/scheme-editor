@@ -68,6 +68,22 @@ export class AppComponent implements AfterViewInit {
             );
         });
 
+        scene.addEventListener('mousedown', (e) => {
+            if (e.button === 0) {
+                this.store$.dispatch(
+                    SceneActions.setMouseLeftPressed({ pressed: true })
+                );
+            }
+        });
+
+        scene.addEventListener('mouseup', (e) => {
+            if (e.button === 0) {
+                this.store$.dispatch(
+                    SceneActions.setMouseLeftPressed({ pressed: false })
+                );
+            }
+        });
+
         this.hookResizeEvent();
     }
 

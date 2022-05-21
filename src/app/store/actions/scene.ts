@@ -20,3 +20,8 @@ export const setMouseEntered = createAction(
     '[Scene] setMouseEntered',
     props<{entered: boolean}>(),
 );
+
+export const setMouseLeftPressed = createAction(
+    '[Scene] setMouseLeftPressed',
+    props<{pressed: boolean}>(),
+);

@@ -10,6 +10,7 @@ export interface State {
     viewportDimensions: Point,
     cursorPosition: Point;
     mouseEntered: boolean;
+    mouseLeftPressed: boolean;
 }
 
 export const initialState: State = {
@@ -18,6 +19,7 @@ export const initialState: State = {
     viewportDimensions: {x: 0, y: 0},
     cursorPosition: {x: 0, y: 0},
     mouseEntered: false,
+    mouseLeftPressed: false,
 };
 
 export const reducer = createReducer(
@@ -48,6 +50,12 @@ export const reducer = createReducer(
         (state, action): State => ({
             ...state,
             mouseEntered: action.entered
+        })
+    ),
+    on(SceneActions.setMouseLeftPressed,
+        (state, action): State => ({
+            ...state,
+            mouseLeftPressed: action.pressed
         })
     ),
 );
