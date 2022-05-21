@@ -1,4 +1,4 @@
-import { Collection, ScaledLayer, ShiftedLayer, Square } from '@/lib/classes';
+import { Collection, ShiftedLayer, Square } from '@/lib/classes';
 import { Mesh } from '@/lib/classes/mesh';
 import { Drawable } from '@/lib/interfaces';
 import { Point } from '@/lib/models';
@@ -62,5 +62,23 @@ export const selectRenderingSize = createSelector(
             state.viewportDimensions.x * state.scaleFactor,
             state.viewportDimensions.y * state.scaleFactor,
         );
+    }
+);
+
+export const selectMouseLeftPressed = createSelector(
+    selectState, (state): boolean => {
+        return state.mouseLeftPressed;
+    }
+);
+
+export const selectCursorPosition = createSelector(
+    selectState, (state): Point => {
+        return state.cursorPosition;
+    }
+);
+
+export const selectMeshOrigin = createSelector(
+    selectState, (state): Point => {
+        return state.meshOrigin;
     }
 );

@@ -40,3 +40,8 @@ export const removePressedKey = createAction(
     '[Scene] removePressedKey',
     props<{code: string}>(),
 );
+
+export const setMeshOrigin = createAction(
+    '[Scene] setMeshOrigin',
+    props<{origin: Point}>(),
+);

@@ -105,4 +105,13 @@ export const reducer = createReducer(
             pressedKeys: state.pressedKeys.filter(code => code !== action.code)
         })
     ),
+    on(SceneActions.setMeshOrigin,
+        (state, action): State => ({
+            ...state,
+            meshOrigin: {
+                x: action.origin.x,
+                y: action.origin.y,
+            }
+        })
+    ),
 );
