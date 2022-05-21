@@ -9,6 +9,7 @@ export class CanvasDrawingContext implements DrawingContext {
 
     color(color: string): DrawingContext {
         this.ctx.strokeStyle = color;
+        this.ctx.fillStyle = color;
         return this;
     }
 
@@ -33,6 +34,11 @@ export class CanvasDrawingContext implements DrawingContext {
     dimensions(dimensions: Point) {
         this.ctx.canvas.width = dimensions.x;
         this.ctx.canvas.height = dimensions.y;
+        return this;
+    }
+
+    rect(origin: Point, width: number, height: number) {
+        this.ctx.fillRect(origin.x, origin.y, width, height);
         return this;
     }
 }

@@ -1,4 +1,4 @@
-import { Collection } from '@/lib/classes';
+import { Collection, Square } from '@/lib/classes';
 import { Mesh } from '@/lib/classes/mesh';
 import { Drawable } from '@/lib/interfaces';
 import { Point } from '@/lib/models';
@@ -21,8 +21,9 @@ export const selectRenderingModel = createSelector(
             '#c4c2c2',
         );
 
-        return new Collection([mesh])
+        const sq = new Square(state.meshOrigin, new Point(50, 50), 100, '#000000');
 
+        return new Collection([mesh, sq])
     }
 );
 
