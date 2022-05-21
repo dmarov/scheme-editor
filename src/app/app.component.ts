@@ -77,6 +77,7 @@ export class AppComponent implements AfterViewInit {
     }
 
     drawScene(model: Drawable): void {
+        this.drawingCtx!.clear();
         model.draw(this.drawingCtx!);
     }
 }

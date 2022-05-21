@@ -36,7 +36,10 @@ export const reducer = createReducer(
         (state, action): State => ({
             ...state,
             viewportDimensions: action.dimensions,
-            viewportCenter: { x: action.dimensions.x / 2, y: action.dimensions.y / 2 },
+            viewportCenter: {
+                x: Math.floor(action.dimensions.x / 2),
+                y: Math.floor(action.dimensions.y / 2),
+            },
         })
     ),
 );
