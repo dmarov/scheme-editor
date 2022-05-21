@@ -1,5 +1,8 @@
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { CanvasDrawingContext, DrawingContext } from '@/lib';
+import { Store } from '@ngrx/store';
+import {SceneActions} from '@/app/store/actions';
+import { Point } from '@/app/models';
 
 @Component({
     selector: 'app-root',
@@ -15,10 +18,18 @@ export class AppComponent implements AfterViewInit {
 
     constructor(
         private readonly hostRef: ElementRef,
+        private readonly store$: Store,
     ) { }
 
     ngAfterViewInit(): void {
         const scene = this.scene!.nativeElement;
+
+        scene.addEventListener('mousemove', (e) => {
+            const position = new Point(e.clientX, e.clientY);
+            this.store$.dispatch(
+                SceneActions.setCursorPosition({ position })
+            );
+        });
         const ctx = scene.getContext('2d');
         this.drawingCtx = new CanvasDrawingContext(ctx!);
         this.watchResize();
