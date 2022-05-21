@@ -4,8 +4,8 @@ import { select, Store } from '@ngrx/store';
 import { SceneActions } from '@/app/store/actions';
 import { Point } from '@/app/models';
 import { SceneSelectors } from './store/selectors';
-import { SceneReducers } from './store/reducers';
-import {Drawable} from '@/lib/interfaces';
+import { Drawable } from '@/lib/interfaces';
+import { withLatestFrom } from 'rxjs';
 
 @Component({
     selector: 'app-root',
@@ -34,9 +34,11 @@ export class AppComponent implements AfterViewInit {
         });
 
         this.store$.pipe(
-            select(SceneSelectors.selectViewportDimensions)
-        ).subscribe((dimensions) => {
+            select(SceneSelectors.selectViewportDimensions),
+            withLatestFrom(this.store$.pipe(select(SceneSelectors.selectRenderingModel))),
+        ).subscribe(([dimensions, model]) => {
             this.drawingCtx!.dimensions(dimensions);
+            model.draw(this.drawingCtx!);
         });
 
         this.setSceneSize(this.scene!.nativeElement.clientWidth, this.scene!.nativeElement.clientHeight);
@@ -54,6 +56,10 @@ export class AppComponent implements AfterViewInit {
             );
         });
 
+        this.hookResizeEvent();
+    }
+
+    hookResizeEvent(): void {
         const observer = new ResizeObserver(entries => {
             entries.forEach(entry => {
                 this.setSceneSize(entry.contentRect.width, entry.contentRect.height);
@@ -70,7 +76,7 @@ export class AppComponent implements AfterViewInit {
         );
     }
 
-    drawScene(model: Drawable) {
+    drawScene(model: Drawable): void {
         model.draw(this.drawingCtx!);
     }
 }
