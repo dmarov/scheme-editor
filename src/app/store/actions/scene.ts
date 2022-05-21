@@ -15,3 +15,8 @@ export const setViewportDimensions = createAction(
     '[Scene] setViewportDimensions',
     props<{dimensions: Point}>(),
 );
+
+export const setMouseEntered = createAction(
+    '[Scene] setMouseEntered',
+    props<{entered: boolean}>(),
+);

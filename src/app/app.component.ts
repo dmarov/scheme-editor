@@ -56,6 +56,18 @@ export class AppComponent implements AfterViewInit {
             );
         });
 
+        scene.addEventListener('mouseenter', (e) => {
+            this.store$.dispatch(
+                SceneActions.setMouseEntered({ entered: true })
+            );
+        });
+
+        scene.addEventListener('mouseleave', (e) => {
+            this.store$.dispatch(
+                SceneActions.setMouseEntered({ entered: false })
+            );
+        });
+
         this.hookResizeEvent();
     }
 
