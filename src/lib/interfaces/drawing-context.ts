@@ -9,4 +9,5 @@ export interface DrawingContext {
     rect(origin: Point, width: number, height: number): DrawingContext;
     origin(origin: Point): DrawingContext;
     getOrigin(): Point;
+    getWidth(): number;
 }

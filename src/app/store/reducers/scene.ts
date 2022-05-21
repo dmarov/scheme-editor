@@ -23,7 +23,7 @@ export const initialState: State = {
     secondaryColor: '#616161',
     extraColor: '#c4c2c2',
     meshGap: 20,
-    meshOrigin: {x: 100, y: 100},
+    meshOrigin: {x: 700, y: 400},
     viewportDimensions: {x: 0, y: 0},
     cursorPosition: {x: 0, y: 0},
     mouseEntered: false,

@@ -52,4 +52,8 @@ export class CanvasDrawingContext implements DrawingContext {
     getOrigin() {
         return this.originPoint;
     }
+
+    getWidth() {
+        return this.ctx.lineWidth;
+    }
 }

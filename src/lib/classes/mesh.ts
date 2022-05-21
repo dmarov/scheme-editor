@@ -13,13 +13,21 @@ export class Mesh implements Drawable {
     ) { }
 
     draw(ctx: DrawingContext): void {
-        ctx.width(1);
+        const prevWidth = ctx.getWidth();
+        const prevOrigin = ctx.getOrigin();
+
+        ctx.width(1)
+            .origin(this.meshOrigin);
+
         const horCnt = Math.ceil(this.viewportDimensions.y / this.meshGap) + 1;
         const vertCnt = Math.ceil(this.viewportDimensions.x / this.meshGap) + 1;
 
         this.drawExtraLines(ctx, horCnt, vertCnt);
         this.drawSecondaryLines(ctx, horCnt, vertCnt);
         this.drawPrimaryLines(ctx);
+
+        ctx.width(prevWidth)
+            .origin(prevOrigin);
     }
 
     private drawExtraLines(ctx: DrawingContext, horCnt: number, vertCnt: number) {
