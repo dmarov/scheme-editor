@@ -12,6 +12,7 @@ export interface State {
     mouseEntered: boolean;
     mouseLeftPressed: boolean;
     scaleFactor: number;
+    pressedKeys: string[],
 }
 
 export const initialState: State = {
@@ -22,6 +23,7 @@ export const initialState: State = {
     mouseEntered: false,
     mouseLeftPressed: false,
     scaleFactor: 1,
+    pressedKeys: [],
 };
 
 export const reducer = createReducer(
@@ -69,6 +71,18 @@ export const reducer = createReducer(
         (state, action): State => ({
             ...state,
             scaleFactor: Math.min(Math.max(0.05, state.scaleFactor + action.factor), 10),
+        })
+    ),
+    on(SceneActions.addPressedKey,
+        (state, action): State => ({
+            ...state,
+            pressedKeys: [...state.pressedKeys, action.code]
+        })
+    ),
+    on(SceneActions.removePressedKey,
+        (state, action): State => ({
+            ...state,
+            pressedKeys: state.pressedKeys.filter(code => code !== action.code)
         })
     ),
 );

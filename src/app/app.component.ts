@@ -92,6 +92,19 @@ export class AppComponent implements AfterViewInit {
             );
         });
 
+        document.addEventListener('keydown', (e) => {
+            e.preventDefault();
+            this.store$.dispatch(
+                SceneActions.addPressedKey({code: e.code})
+            );
+        });
+
+        document.addEventListener('keyup', (e) => {
+            e.preventDefault();
+            this.store$.dispatch(
+                SceneActions.removePressedKey({code: e.code})
+            );
+        });
         this.hookResizeEvent();
     }
 

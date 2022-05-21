@@ -30,3 +30,13 @@ export const addScaleFactor = createAction(
     '[Scene] addScaleFactor',
     props<{factor: number}>(),
 );
+
+export const addPressedKey = createAction(
+    '[Scene] addPressedKey',
+    props<{code: string}>(),
+);
+
+export const removePressedKey = createAction(
+    '[Scene] removePressedKey',
+    props<{code: string}>(),
+);
