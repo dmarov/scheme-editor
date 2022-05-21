@@ -25,7 +25,7 @@ export class Square implements Drawable {
             .line(this.origin, p1)
             .line(p1, p2)
             .line(p2, p3)
-            .line(p3, this.origin);
+            .line(p3, this.origin)
 
         ctx.width(prevWidth);
     }

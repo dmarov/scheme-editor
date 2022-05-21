@@ -14,7 +14,6 @@ export class Mesh implements Drawable {
 
     draw(ctx: DrawingContext): void {
         const prevWidth = ctx.getWidth();
-        const prevOrigin = ctx.getOrigin();
 
         ctx.width(1)
             .origin(this.meshOrigin);
@@ -27,7 +26,7 @@ export class Mesh implements Drawable {
         this.drawPrimaryLines(ctx);
 
         ctx.width(prevWidth)
-            .origin(prevOrigin);
+            .origin({x: -this.meshOrigin.x, y: -this.meshOrigin.y});
     }
 
     private drawExtraLines(ctx: DrawingContext, horCnt: number, vertCnt: number) {

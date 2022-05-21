@@ -9,9 +9,8 @@ export class ShiftedLayer implements Drawable {
     ) { }
 
     draw(ctx: DrawingContext): void {
-        const prevOrigin = ctx.getOrigin();
         ctx.origin(this.origin);
         this.entry.draw(ctx);
-        ctx.origin(prevOrigin);
+        ctx.origin({x: -this.origin.x, y: -this.origin.y});
     }
 }
