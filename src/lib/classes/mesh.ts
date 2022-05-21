@@ -36,17 +36,17 @@ export class Mesh implements Drawable {
         ctx.width(2)
             .color(this.primaryColor)
             .line({
-                x: - (this.viewportCenter.x - this.viewportDimensions.x / 2),
+                x: this.viewportCenter.x + this.viewportDimensions.x / 2,
                 y: 0
             }, {
-                x: - (this.viewportCenter.x - this.viewportDimensions.x / 2),
+                x: this.viewportCenter.x + this.viewportDimensions.x / 2,
                 y: this.viewportDimensions.y,
             }).line({
                 x: 0,
-                y: this.viewportCenter.y - this.viewportDimensions.y / 2,
+                y: this.viewportCenter.y + this.viewportDimensions.y / 2,
             }, {
                 x: this.viewportDimensions.x,
-                y: this.viewportCenter.y - this.viewportDimensions.y / 2,
+                y: this.viewportCenter.y + this.viewportDimensions.y / 2,
             });
     }
 
