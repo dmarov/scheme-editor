@@ -8,7 +8,7 @@ export class CanvasDrawingContext implements DrawingContext {
     ) { }
 
     color(color: string): DrawingContext {
-        this.ctx.fillStyle = color;
+        this.ctx.strokeStyle = color;
         return this;
     }
 

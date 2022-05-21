@@ -10,7 +10,14 @@ export const selectState = createFeatureSelector<State>(
 
 export const selectRenderingModel = createSelector(
     selectState, (state): Drawable => {
-        return new Mesh(state.viewportCenter, state.viewportDimensions, state.meshGap);
+        return new Mesh(
+            state.viewportCenter,
+            state.viewportDimensions,
+            state.meshGap,
+            '#000000',
+            '#616161',
+            '#c4c2c2',
+        );
     }
 );
 
