@@ -5,6 +5,9 @@ import { SceneActions } from '../actions';
 export const featureKey = 'scene';
 
 export interface State {
+    primaryColor: string,
+    secondaryColor: string,
+    extraColor: string,
     meshGap: number,
     meshOrigin: Point;
     viewportDimensions: Point,
@@ -16,6 +19,9 @@ export interface State {
 }
 
 export const initialState: State = {
+    primaryColor: '#000000',
+    secondaryColor: '#616161',
+    extraColor: '#c4c2c2',
     meshGap: 20,
     meshOrigin: {x: 100, y: 100},
     viewportDimensions: {x: 0, y: 0},

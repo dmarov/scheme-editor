@@ -16,14 +16,15 @@ export const selectRenderingModel = createSelector(
             state.meshOrigin,
             state.viewportDimensions,
             state.meshGap,
-            '#000000',
-            '#616161',
-            '#c4c2c2',
+            state.primaryColor,
+            state.secondaryColor,
+            state.extraColor,
         );
 
-        const sq = new Square(new Point(50, 50), 100, '#000000');
+        const sq1 = new Square(new Point(50, 50), 100, state.extraColor, state.secondaryColor);
+        const sq2 = new Square(new Point(150, -150), 100, state.extraColor, state.secondaryColor);
 
-        const collection = new Collection([mesh, sq]);
+        const collection = new Collection([mesh, sq1, sq2]);
 
         return new ShiftedLayer(state.meshOrigin, collection);
     }

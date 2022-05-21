@@ -7,6 +7,7 @@ export class Square implements Drawable {
         private readonly origin: Point,
         private readonly size: number,
         private readonly color: string,
+        private readonly borderColor: string,
     ) { }
 
     draw(ctx: DrawingContext): void {
