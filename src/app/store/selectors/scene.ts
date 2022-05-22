@@ -24,7 +24,7 @@ export const selectRenderingModel = createSelector(
 
         const entries: Drawable[] = []
 
-        for (const e of Object.values(state.entries)) {
+        for (const e of Object.values(state.shapes)) {
             // TODO: need to refactor it
             if (e.type === EntryType.Square) {
                 const payload = e.payload;
@@ -51,7 +51,7 @@ export const selectRenderingModel = createSelector(
 
 export const selectEntries = createSelector(
     selectState, (state): EntriesMap => {
-        return state.entries;
+        return state.shapes;
     }
 );
 

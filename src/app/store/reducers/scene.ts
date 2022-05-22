@@ -7,7 +7,7 @@ import { SceneActions } from '../actions';
 export const featureKey = 'scene';
 
 export interface State {
-    entries: EntriesMap;
+    shapes: EntriesMap;
     primaryColor: string;
     secondaryColor: string;
     extraColor: string;
@@ -24,7 +24,7 @@ export interface State {
 };
 
 export const initialState: State = {
-    entries: {
+    shapes: {
         "0": {
             type: EntryType.Square,
             payload: {
@@ -125,10 +125,10 @@ export const reducer = createReducer(
     ),
     on(SceneActions.setEntryOrigin,
         (state: State, action): State => {
-            const entries = {...state.entries};
-            const entry = entries[`${action.id}`];
+            const shapes = {...state.shapes};
+            const entry = shapes[`${action.id}`];
 
-            entries[`${action.id}`] = {
+            shapes[`${action.id}`] = {
                 ...entry,
                 payload: {
                     ...entry.payload,
@@ -139,7 +139,7 @@ export const reducer = createReducer(
                 }
             };
 
-            return { ...state, entries };
+            return { ...state, shapes };
         }
     ),
     on(SceneActions.setActiveEntry,
