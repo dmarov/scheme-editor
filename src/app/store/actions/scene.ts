@@ -63,3 +63,11 @@ export const setInveractiveObjectOrigin = createAction(
         origin: Point;
     }>(),
 );
+
+export const setDrawableObjectOrigin = createAction(
+    '[Scene] setDrawableObjectOrigin',
+    props<{
+        id: number;
+        origin: Point;
+    }>(),
+);

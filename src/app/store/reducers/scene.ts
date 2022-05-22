@@ -7,7 +7,7 @@ import { SceneActions } from '../actions';
 export const featureKey = 'scene';
 
 export interface State {
-    shapes: SerializableShapesMap;
+    drawableShapes: SerializableShapesMap;
     interactiveShapes: SerializableShapesMap;
     intToDraw: {[key: string]: number};
     primaryColor: string;
@@ -26,7 +26,7 @@ export interface State {
 };
 
 export const initialState: State = {
-    shapes: {
+    drawableShapes: {
         "0": {
             type: SerializableShapeType.Collection,
             payload: {
@@ -194,12 +194,12 @@ export const reducer = createReducer(
             };
 
             const drawableId = state.intToDraw[`${action.id}`];
-            const shapes = {...state.shapes};
+            const drawableShapes = {...state.drawableShapes};
 
             if (typeof drawableId !== 'undefined') {
-                const shapeEntry = shapes[`${drawableId}`];
+                const shapeEntry = drawableShapes[`${drawableId}`];
 
-                shapes[`${drawableId}`] = {
+                drawableShapes[`${drawableId}`] = {
                     ...shapeEntry,
                     payload: {
                         ...shapeEntry.payload,
@@ -211,7 +211,7 @@ export const reducer = createReducer(
                 };
             }
 
-            return { ...state, interactiveShapes, shapes };
+            return { ...state, interactiveShapes, drawableShapes };
         }
     ),
     on(SceneActions.setActiveEntry,
@@ -219,5 +219,24 @@ export const reducer = createReducer(
             ...state,
             activeEntryId: action.id,
         })
+    ),
+    on(SceneActions.setDrawableObjectOrigin,
+        (state: State, action): State => {
+            const drawableShapes = {...state.drawableShapes};
+            const shapeEntry = drawableShapes[`${action.id}`];
+
+            drawableShapes[`${action.id}`] = {
+                ...shapeEntry,
+                payload: {
+                    ...shapeEntry.payload,
+                    origin: {
+                        x: action.origin.x,
+                        y: action.origin.y,
+                    },
+                }
+            };
+
+            return { ...state, drawableShapes };
+        }
     ),
 );

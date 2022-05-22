@@ -79,5 +79,25 @@ export class SceneEffects {
             })
         ), { dispatch: false },
     );
+
+    setInteractiveObjectOrigin$ = createEffect(
+        () => this.actions$.pipe(
+            ofType(SceneActions.setInveractiveObjectOrigin),
+            withLatestFrom(
+                this.store$.pipe(
+                    select(SceneSelectors.selectState)
+                ),
+            ),
+            tap(([action, state]) => {
+                const id = state.intToDraw[action.id];
+
+                if (typeof id !== 'undefined') {
+                    this.store$.dispatch(
+                        SceneActions.setDrawableObjectOrigin({id, origin: action.origin})
+                    );
+                }
+            })
+        ), { dispatch: false },
+    );
 }
 
