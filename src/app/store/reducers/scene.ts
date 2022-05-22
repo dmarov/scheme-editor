@@ -115,4 +115,19 @@ export const reducer = createReducer(
             }
         })
     ),
+    on(SceneActions.setEntryOrigin,
+        (state, action): State => {
+            const entries = {...state.entries};
+
+            entries[`${action.id}`] = {
+                ...entries[`${action.id}`],
+                origin: {
+                    x: action.origin.x,
+                    y: action.origin.y,
+                }
+            };
+
+            return { ...state, entries };
+        }
+    ),
 );

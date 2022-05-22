@@ -1,4 +1,4 @@
-import { EntriesMap, EntryType } from '@/app/models';
+import { EntriesMap, Entry, EntryType } from '@/app/models';
 import { Collection, ShiftedLayer, Square } from '@/lib/classes';
 import { Mesh } from '@/lib/classes/mesh';
 import { Drawable } from '@/lib/interfaces';
@@ -25,6 +25,7 @@ export const selectRenderingModel = createSelector(
         const squares: Square[] = [];
 
         for (const e of Object.values(state.entries)) {
+            // TODO: need to refactor it
             if (e.type === EntryType.Square) {
                 const origin = new Point(e.origin.x, e.origin.y)
                 squares.push(new Square(origin, 100, state.extraColor, state.secondaryColor))
@@ -97,7 +98,8 @@ export const selectHoveredInteractiveEntryId = createSelector(
         const cursorX = position.x - origin.x;
         const cursorY = position.y - origin.y;
 
-        for(const [k, v] of Object.entries(entries)) {
+        for (const [k, v] of Object.entries(entries)) {
+            // TODO: need to refactor it
             if (v.type === EntryType.Square) {
                 if (v.origin.x < cursorX && cursorX < v.origin.x + v.size) {
                     if (v.origin.y < cursorY && cursorY < v.origin.y + v.size) {
@@ -108,5 +110,13 @@ export const selectHoveredInteractiveEntryId = createSelector(
         }
 
         return null;
+    }
+);
+
+export const selectHoveredInteractiveEntry = createSelector(
+    selectHoveredInteractiveEntryId,
+    selectEntries,
+    (id, entries): Entry => {
+        return entries[`${id}`] ?? null;
     }
 );

@@ -55,3 +55,11 @@ export const tryMove = createAction(
     '[Scene] tryMove',
     props<{diff: Point}>(),
 );
+
+export const setEntryOrigin = createAction(
+    '[Scene] setEntryOrigin',
+    props<{
+        id: number;
+        origin: Point;
+    }>(),
+);
