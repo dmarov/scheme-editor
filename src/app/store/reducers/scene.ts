@@ -40,11 +40,11 @@ export const initialState: State = {
             origin: {x: 350, y: 100},
             size: 200,
         },
-        "3": {
-            type: EntryType.Connection,
-            from: {x: 75, y: -85},
-            to: {x: -25, y: 75},
-        },
+        // "3": {
+        //     type: EntryType.Connection,
+        //     from: {x: 75, y: -85},
+        //     to: {x: -25, y: 75},
+        // },
     },
     primaryColor: '#000000',
     secondaryColor: '#616161',

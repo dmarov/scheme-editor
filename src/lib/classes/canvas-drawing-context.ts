@@ -53,6 +53,14 @@ export class CanvasDrawingContext implements DrawingContext {
         return this;
     }
 
+    circle(center: Point, radius: number) {
+        this.ctx.beginPath();
+        this.ctx.arc(center.x, center.y, radius, 0, 2 * Math.PI);
+        this.ctx.fill();
+        this.ctx.stroke();
+        return this;
+    }
+
     getWidth() {
         return this.ctx.lineWidth;
     }
