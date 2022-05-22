@@ -1,4 +1,4 @@
-import { Point } from '@/lib/models';
+import { Point } from '@/lib';
 import { createAction, props } from '@ngrx/store';
 
 export const setCursorPosition = createAction(

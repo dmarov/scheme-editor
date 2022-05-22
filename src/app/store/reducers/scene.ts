@@ -1,6 +1,6 @@
 import { SerializableShapeType } from '@/app/models';
 import { SerializableShapesMap } from '@/app/models';
-import { Point } from '@/lib/models';
+import { Point } from '@/lib';
 import { createReducer, on } from '@ngrx/store';
 import { SceneActions } from '../actions';
 

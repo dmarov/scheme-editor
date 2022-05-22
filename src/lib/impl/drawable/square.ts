@@ -1,5 +1,5 @@
 import { Drawable, DrawingContext } from "@/lib/interfaces";
-import { Point } from "@/lib/models";
+import { Point } from "../../models/point";
 
 export class Square implements Drawable {
 

@@ -1,4 +1,4 @@
-import { Point } from '../models';
+import { Point } from '..';
 
 export interface DrawingContext {
     line(start: Point, end: Point): DrawingContext;

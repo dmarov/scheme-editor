@@ -4,7 +4,7 @@ import { SceneActions } from '@/app/store/actions';
 import { tap, withLatestFrom, filter } from 'rxjs/operators';
 import { select, Store } from '@ngrx/store';
 import { SceneSelectors } from '../selectors';
-import { Point } from '@/lib/models';
+import { Point } from '@/lib';
 
 @Injectable()
 export class SceneEffects {

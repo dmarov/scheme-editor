@@ -1,2 +1,11 @@
-export { DrawingContext } from './interfaces';
-export { CanvasDrawingContext } from './classes';
+export * from './interfaces/drawing-context';
+export * from './interfaces/drawable';
+export * from './impl/context/canvas-drawing-context';
+export * from './impl/drawable/mesh';
+export * from './impl/drawable/collection';
+export * from './impl/drawable/square';
+export * from './impl/drawable/shifted-layer';
+export * from './impl/drawable/scaled-layer';
+export * from './impl/drawable/connection';
+export * from './impl/drawable/joint';
+export * from './models/point';

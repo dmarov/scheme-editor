@@ -1,5 +1,4 @@
-import { Point } from '../models';
-import { DrawingContext } from '../interfaces';
+import { DrawingContext, Point } from '../..';
 
 export class CanvasDrawingContext implements DrawingContext {
 

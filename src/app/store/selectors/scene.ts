@@ -1,8 +1,7 @@
 import { SerializableShapesMap, SerializableShapeType } from '@/app/models';
-import { Collection, Joint, ShiftedLayer, Square } from '@/lib/classes';
-import { Mesh } from '@/lib/classes/mesh';
+import { Collection, Joint, ShiftedLayer, Square } from '@/lib';
+import { Point, Mesh } from '@/lib';
 import { Drawable } from '@/lib/interfaces';
-import { Point } from '@/lib/models';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { State, featureKey } from '../reducers/scene';
 
@@ -11,7 +10,7 @@ export const selectState = createFeatureSelector<State>(
 );
 
 export const selectRenderingModel = createSelector(
-    selectState, (state): Drawable => {
+    selectState, (state: State): Drawable => {
 
         const mesh = new Mesh(
             state.meshOrigin,

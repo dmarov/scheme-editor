@@ -1,5 +1,4 @@
-import { Drawable, DrawingContext } from "@/lib/interfaces";
-import { Point } from "@/lib/models";
+import { Point, Drawable, DrawingContext} from "../..";
 
 export class Connection implements Drawable {
 
