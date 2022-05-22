@@ -1,4 +1,4 @@
-import { SerializableShapesMap, ShapeType } from '@/app/models';
+import { SerializableShapesMap, SerializableShapeType } from '@/app/models';
 import { Collection, Joint, ShiftedLayer, Square } from '@/lib/classes';
 import { Mesh } from '@/lib/classes/mesh';
 import { Drawable } from '@/lib/interfaces';
@@ -26,11 +26,11 @@ export const selectRenderingModel = createSelector(
 
         for (const e of Object.values(state.shapes)) {
             // TODO: need to refactor it
-            if (e.type === ShapeType.Square) {
+            if (e.type === SerializableShapeType.Square) {
                 const payload = e.payload;
                 const origin = new Point(payload.origin.x, payload.origin.y)
                 shapes.push(new Square(origin, payload.size, state.extraColor, state.secondaryColor))
-            } else if (e.type === ShapeType.Joint) {
+            } else if (e.type === SerializableShapeType.Joint) {
                 const payload = e.payload;
                 shapes.push(new Joint(payload.origin, payload.radius, state.primaryColor))
             }
@@ -104,7 +104,7 @@ export const selectHoveredInteractiveEntryId = createSelector(
 
         for (const [k, v] of Object.entries(shapes)) {
             // TODO: need to refactor it
-            if (v.type === ShapeType.Square) {
+            if (v.type === SerializableShapeType.Square) {
                 if (v.payload.origin.x < cursorX && cursorX < v.payload.origin.x + v.payload.size) {
                     if (v.payload.origin.y < cursorY && cursorY < v.payload.origin.y + v.payload.size) {
                         return parseInt(k);

@@ -1,4 +1,4 @@
-export enum ShapeType {
+export enum SerializableShapeType {
     Square = "square",
     Joint = "joint",
 }

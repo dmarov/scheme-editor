@@ -1,6 +1,6 @@
-import { ShapeType } from "@/app/models";
+import { SerializableShapeType } from "@/app/models";
 
 export interface SerializableShape {
-    type: ShapeType;
+    type: SerializableShapeType;
     payload: any;
 }

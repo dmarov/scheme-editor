@@ -1,4 +1,4 @@
-import { ShapeType } from '@/app/models';
+import { SerializableShapeType } from '@/app/models';
 import { SerializableShapesMap } from '@/app/models';
 import { Point } from '@/lib/models';
 import { createReducer, on } from '@ngrx/store';
@@ -26,21 +26,21 @@ export interface State {
 export const initialState: State = {
     shapes: {
         "0": {
-            type: ShapeType.Square,
+            type: SerializableShapeType.Square,
             payload: {
                 origin: {x: -200, y: 50},
                 size: 150,
             }
         },
         "1": {
-            type: ShapeType.Square,
+            type: SerializableShapeType.Square,
             payload: {
                 origin: {x: 150, y: -250},
                 size: 150,
             },
         },
         "2": {
-            type: ShapeType.Square,
+            type: SerializableShapeType.Square,
             payload: {
                 origin: {x: 350, y: 100},
                 size: 200,
