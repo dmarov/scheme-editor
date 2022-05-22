@@ -28,7 +28,7 @@ export const selectRenderingModel = createSelector(
             // TODO: need to refactor it
             if (e.type === EntryType.Square) {
                 const origin = new Point(e.origin.x, e.origin.y)
-                squares.push(new Square(origin, 100, state.extraColor, state.secondaryColor))
+                squares.push(new Square(origin, e.size, state.extraColor, state.secondaryColor))
             }
         }
 

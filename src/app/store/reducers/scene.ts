@@ -27,17 +27,17 @@ export const initialState: State = {
         "0": {
             type: EntryType.Square,
             origin: {x: 50, y: 50},
-            size: 100,
+            size: 150,
         },
         "1": {
             type: EntryType.Square,
-            origin: {x: 150, y: -150},
-            size: 100,
+            origin: {x: 150, y: -250},
+            size: 150,
         },
         "2": {
             type: EntryType.Square,
-            origin: {x: 350, y: -100},
-            size: 100,
+            origin: {x: 550, y: -100},
+            size: 200,
         },
     },
     primaryColor: '#000000',
