@@ -41,7 +41,7 @@ export class SceneEffects {
                     );
                 } else {
                     this.store$.dispatch(
-                        SceneActions.setEntryOrigin({
+                        SceneActions.setInveractiveObjectOrigin({
                             id,
                             origin: new Point(entry.origin.x + action.diff.x, entry.origin.y + action.diff.y)
                         })

@@ -177,7 +177,7 @@ export const reducer = createReducer(
             }
         })
     ),
-    on(SceneActions.setEntryOrigin,
+    on(SceneActions.setInveractiveObjectOrigin,
         (state: State, action): State => {
             const interactiveShapes = {...state.interactiveShapes};
             const entry = interactiveShapes[`${action.id}`];
