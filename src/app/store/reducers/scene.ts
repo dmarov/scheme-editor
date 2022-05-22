@@ -107,98 +107,16 @@ export const initialState: State = {
                 size: 200,
             }
         },
+        "11": {
+            type: SerializableShapeType.Connection,
+            payload: {
+                from: 2,
+                to: 7,
+            }
+        },
     },
-    drawableShapes: [0, 3, 5],
-    // drawableShapes: {
-    //     "0": {
-    //         type: SerializableShapeType.Collection,
-    //         payload: {
-    //             origin: {x: 100, y: 100},
-    //             entries: [
-    //                 {
-    //                     type: SerializableShapeType.Square,
-    //                     payload: {
-    //                         origin: {x: 0, y: 0},
-    //                         size: 150,
-    //                     }
-    //                 },
-    //                 {
-    //                     type: SerializableShapeType.Joint,
-    //                     payload: {
-    //                         origin: {x: 150, y: 75},
-    //                         radius: 3,
-    //                     }
-    //                 },
-    //             ]
-    //         }
-    //     },
-    //     "1": {
-    //         type: SerializableShapeType.Collection,
-    //         payload: {
-    //             origin: {x: 150, y: -250},
-    //             entries: [
-    //                 {
-    //                     type: SerializableShapeType.Square,
-    //                     payload: {
-    //                         origin: {x: 0, y: 0},
-    //                         size: 150,
-    //                     }
-    //                 }
-    //             ]
-    //         }
-    //     },
-    //     "2": {
-    //         type: SerializableShapeType.Collection,
-    //         payload: {
-    //             origin: {x: 350, y: 100},
-    //             entries: [
-    //                 {
-    //                     type: SerializableShapeType.Square,
-    //                     payload: {
-    //                         origin: {x: 0, y: 0},
-    //                         size: 200,
-    //                     }
-    //                 },
-    //                 {
-    //                     type: SerializableShapeType.Joint,
-    //                     payload: {
-    //                         origin: {x: 0, y: 100},
-    //                         radius: 3,
-    //                     }
-    //                 },
-    //             ]
-    //         }
-    //     },
-    // },
+    drawableShapes: [0, 3, 5, 11],
     interactiveShapes: [8, 9 ,10],
-    // interactiveShapes: {
-    //     "0": {
-    //         type: SerializableShapeType.Square,
-    //         payload: {
-    //             origin: {x: 100, y: 100},
-    //             size: 150,
-    //         }
-    //     },
-    //     "1": {
-    //         type: SerializableShapeType.Square,
-    //         payload: {
-    //             origin: {x: 150, y: -250},
-    //             size: 150,
-    //         }
-    //     },
-    //     "2": {
-    //         type: SerializableShapeType.Square,
-    //         payload: {
-    //             origin: {x: 350, y: 100},
-    //             size: 200,
-    //         }
-    //     },
-    // },
-    // intToDraw: {
-    //     "0": 0,
-    //     "1": 1,
-    //     "2": 2,
-    // },
     intToDraw: {
         "8": 0,
         "9": 3,
