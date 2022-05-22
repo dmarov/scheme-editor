@@ -22,24 +22,24 @@ export const selectRenderingModel = createSelector(
             state.extraColor,
         );
 
-        const entries: Drawable[] = []
+        const shapes: Drawable[] = []
 
         for (const e of Object.values(state.shapes)) {
             // TODO: need to refactor it
             if (e.type === EntryType.Square) {
                 const payload = e.payload;
                 const origin = new Point(payload.origin.x, payload.origin.y)
-                entries.push(new Square(origin, payload.size, state.extraColor, state.secondaryColor))
+                shapes.push(new Square(origin, payload.size, state.extraColor, state.secondaryColor))
             } else if (e.type === EntryType.Connection) {
                 const payload = e.payload;
-                entries.push(new Connection(payload.from, payload.to))
+                shapes.push(new Connection(payload.from, payload.to))
             } else if (e.type === EntryType.Joint) {
                 const payload = e.payload;
-                entries.push(new Joint(payload.origin, payload.radius, state.primaryColor))
+                shapes.push(new Joint(payload.origin, payload.radius, state.primaryColor))
             }
         }
 
-        const objects = new Collection(entries);
+        const objects = new Collection(shapes);
 
         const shl = new ShiftedLayer(state.meshOrigin, objects);
         // TODO: implement scale
@@ -49,7 +49,7 @@ export const selectRenderingModel = createSelector(
     }
 );
 
-export const selectEntries = createSelector(
+export const selectShapes = createSelector(
     selectState, (state): EntriesMap => {
         return state.shapes;
     }
@@ -101,11 +101,11 @@ export const selectMeshOrigin = createSelector(
 );
 
 export const selectHoveredInteractiveEntryId = createSelector(
-    selectCursorPosition, selectEntries, selectMeshOrigin, (position, entries, origin): number | null => {
+    selectCursorPosition, selectShapes, selectMeshOrigin, (position, shapes, origin): number | null => {
         const cursorX = position.x - origin.x;
         const cursorY = position.y - origin.y;
 
-        for (const [k, v] of Object.entries(entries)) {
+        for (const [k, v] of Object.entries(shapes)) {
             // TODO: need to refactor it
             if (v.type === EntryType.Square) {
                 if (v.payload.origin.x < cursorX && cursorX < v.payload.origin.x + v.payload.size) {
@@ -120,22 +120,14 @@ export const selectHoveredInteractiveEntryId = createSelector(
     }
 );
 
-export const selectHoveredInteractiveEntry = createSelector(
-    selectHoveredInteractiveEntryId,
-    selectEntries,
-    (id, entries): Entry => {
-        return entries[`${id}`] ?? null;
-    }
-);
-
 export const selectActiveEntryId = createSelector(
     selectState, (state): number | null => state.activeEntryId
 );
 
 export const selectActiveEntry = createSelector(
     selectActiveEntryId,
-    selectEntries,
-    (id, entries) => {
-        return entries[`${id}`]?.payload ?? null;
+    selectShapes,
+    (id, shapes) => {
+        return shapes[`${id}`]?.payload ?? null;
     }
 );
