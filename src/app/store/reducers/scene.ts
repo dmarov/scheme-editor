@@ -58,16 +58,9 @@ export const reducer = createReducer(
     initialState,
     on(SceneActions.setCursorPosition,
         (state, action): State => {
-            const dx = state.mouseLeftPressed ? action.position.x - state.cursorPosition.x : 0;
-            const dy = state.mouseLeftPressed ? action.position.y - state.cursorPosition.y : 0;
-
             return {
                 ...state,
                 cursorPosition: action.position,
-                meshOrigin: {
-                    x: state.meshOrigin.x + dx,
-                    y: state.meshOrigin.y + dy,
-                }
             };
         }
     ),

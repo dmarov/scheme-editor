@@ -16,28 +16,22 @@ export class SceneEffects {
 
     shiftLayer$ = createEffect(
         () => this.actions$.pipe(
-            ofType(SceneActions.setCursorPosition),
+            ofType(SceneActions.tryMoveScene),
             withLatestFrom(
                 this.store$.pipe(
                     select(SceneSelectors.selectMouseLeftPressed)
-                ),
-                this.store$.pipe(
-                    select(SceneSelectors.selectCursorPosition)
                 ),
                 this.store$.pipe(
                     select(SceneSelectors.selectMeshOrigin)
                 ),
             ),
             filter(([,pressed]) => pressed),
-            tap(([action,, position, origin]) => {
-                // const dx = action.position.x - position.x;
-                // const dy = action.position.y - position.y;
-
-                // this.store$.dispatch(
-                //     SceneActions.setMeshOrigin({
-                //         origin: new Point(origin.x + dx, origin.y + dy)
-                //     })
-                // )
+            tap(([action,, origin]) => {
+                this.store$.dispatch(
+                    SceneActions.setMeshOrigin({
+                        origin: new Point(origin.x + action.diff.x, origin.y + action.diff.y)
+                    })
+                )
             })
         ), { dispatch: false },
     );

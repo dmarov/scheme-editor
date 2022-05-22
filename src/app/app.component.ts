@@ -19,6 +19,8 @@ export class AppComponent implements AfterViewInit {
 
     drawingCtx: DrawingContext | null = null;
 
+    latestPosition: Point | null = null;
+
     constructor(
         private readonly hostRef: ElementRef,
         private readonly store$: Store,
@@ -50,10 +52,26 @@ export class AppComponent implements AfterViewInit {
         this.drawingCtx = new CanvasDrawingContext(ctx!);
 
         scene.addEventListener('mousemove', (e) => {
+            if (this.latestPosition === null) {
+                this.latestPosition = new Point(e.clientX, e.clientY);
+                return;
+            }
+
             const position = new Point(e.clientX, e.clientY);
             this.store$.dispatch(
                 SceneActions.setCursorPosition({ position })
             );
+
+            this.store$.dispatch(
+                SceneActions.tryMoveScene({
+                    diff: {
+                        x: e.clientX - this.latestPosition.x,
+                        y: e.clientY - this.latestPosition.y,
+                    }
+                })
+            );
+
+            this.latestPosition = new Point(e.clientX, e.clientY);
         });
 
         scene.addEventListener('mouseenter', (e) => {

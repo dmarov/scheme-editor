@@ -50,3 +50,8 @@ export const setActiveEntry = createAction(
     '[Scene] setActiveEntry',
     props<{id: number | null}>(),
 );
+
+export const tryMoveScene = createAction(
+    '[Scene] tryMoveScene',
+    props<{diff: Point}>(),
+);
