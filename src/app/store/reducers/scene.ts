@@ -40,6 +40,11 @@ export const initialState: State = {
             origin: {x: 350, y: 100},
             size: 200,
         },
+        "3": {
+            type: EntryType.Joint,
+            origin: {x: -50, y: -100},
+            radius: 3,
+        },
         // "3": {
         //     type: EntryType.Connection,
         //     from: {x: 75, y: -85},

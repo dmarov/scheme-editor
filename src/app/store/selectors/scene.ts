@@ -1,5 +1,5 @@
 import { EntriesMap, Entry, EntryType } from '@/app/models';
-import { Collection, Connection, ShiftedLayer, Square } from '@/lib/classes';
+import { Collection, Connection, Joint, ShiftedLayer, Square } from '@/lib/classes';
 import { Mesh } from '@/lib/classes/mesh';
 import { Drawable } from '@/lib/interfaces';
 import { Point } from '@/lib/models';
@@ -31,6 +31,8 @@ export const selectRenderingModel = createSelector(
                 entries.push(new Square(origin, e.size, state.extraColor, state.secondaryColor))
             } else if (e.type === EntryType.Connection) {
                 entries.push(new Connection(e.from, e.to))
+            } else if (e.type === EntryType.Joint) {
+                entries.push(new Joint(e.origin, e.radius, state.primaryColor))
             }
         }
 
