@@ -8,6 +8,7 @@ export const featureKey = 'scene';
 
 export interface State {
     entries: EntriesMap;
+    // groups: Group[];
     primaryColor: string;
     secondaryColor: string;
     extraColor: string;
@@ -51,6 +52,11 @@ export const initialState: State = {
         //     to: {x: -25, y: 75},
         // },
     },
+    // groups: [
+    //     new Group([0, 1], [1]),
+    //     new Group([2], []),
+    // ],
+    // },
     primaryColor: '#000000',
     secondaryColor: '#616161',
     extraColor: '#c4c2c2',
