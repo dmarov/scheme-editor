@@ -42,8 +42,8 @@ export const initialState: State = {
         },
         "3": {
             type: EntryType.Connection,
-            fromEntry: 0,
-            toEntry: 1,
+            from: {x: 75, y: -85},
+            to: {x: -25, y: 75},
         },
     },
     primaryColor: '#000000',

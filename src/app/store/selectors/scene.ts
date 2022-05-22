@@ -1,5 +1,5 @@
 import { EntriesMap, Entry, EntryType } from '@/app/models';
-import { Collection, ShiftedLayer, Square } from '@/lib/classes';
+import { Collection, Connection, ShiftedLayer, Square } from '@/lib/classes';
 import { Mesh } from '@/lib/classes/mesh';
 import { Drawable } from '@/lib/interfaces';
 import { Point } from '@/lib/models';
@@ -22,19 +22,21 @@ export const selectRenderingModel = createSelector(
             state.extraColor,
         );
 
-        const squares: Square[] = [];
+        const entries: Drawable[] = []
 
         for (const e of Object.values(state.entries)) {
             // TODO: need to refactor it
             if (e.type === EntryType.Square) {
                 const origin = new Point(e.origin.x, e.origin.y)
-                squares.push(new Square(origin, e.size, state.extraColor, state.secondaryColor))
+                entries.push(new Square(origin, e.size, state.extraColor, state.secondaryColor))
+            } else if (e.type === EntryType.Connection) {
+                entries.push(new Connection(e.from, e.to))
             }
         }
 
-        const sqs = new Collection(squares);
+        const objects = new Collection(entries);
 
-        const shl = new ShiftedLayer(state.meshOrigin, sqs);
+        const shl = new ShiftedLayer(state.meshOrigin, objects);
         // TODO: implement scale
         const collection = new Collection([mesh, shl]);
 
