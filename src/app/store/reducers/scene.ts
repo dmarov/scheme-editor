@@ -8,7 +8,6 @@ export const featureKey = 'scene';
 
 export interface State {
     entries: EntriesMap;
-    // groups: Group[];
     primaryColor: string;
     secondaryColor: string;
     extraColor: string;
@@ -28,35 +27,26 @@ export const initialState: State = {
     entries: {
         "0": {
             type: EntryType.Square,
-            origin: {x: -200, y: 50},
-            size: 150,
+            payload: {
+                origin: {x: -200, y: 50},
+                size: 150,
+            }
         },
         "1": {
             type: EntryType.Square,
-            origin: {x: 150, y: -250},
-            size: 150,
+            payload: {
+                origin: {x: 150, y: -250},
+                size: 150,
+            }
         },
         "2": {
             type: EntryType.Square,
-            origin: {x: 350, y: 100},
-            size: 200,
+            payload: {
+                origin: {x: 350, y: 100},
+                size: 200,
+            }
         },
-        "3": {
-            type: EntryType.Joint,
-            origin: {x: -50, y: -100},
-            radius: 3,
-        },
-        // "3": {
-        //     type: EntryType.Connection,
-        //     from: {x: 75, y: -85},
-        //     to: {x: -25, y: 75},
-        // },
     },
-    // groups: [
-    //     new Group([0, 1], [1]),
-    //     new Group([2], []),
-    // ],
-    // },
     primaryColor: '#000000',
     secondaryColor: '#616161',
     extraColor: '#c4c2c2',
@@ -134,14 +124,18 @@ export const reducer = createReducer(
         })
     ),
     on(SceneActions.setEntryOrigin,
-        (state, action): State => {
+        (state: State, action): State => {
             const entries = {...state.entries};
+            const entry = entries[`${action.id}`];
 
             entries[`${action.id}`] = {
-                ...entries[`${action.id}`],
-                origin: {
-                    x: action.origin.x,
-                    y: action.origin.y,
+                ...entry,
+                payload: {
+                    ...entry.payload,
+                    origin: {
+                        x: action.origin.x,
+                        y: action.origin.y,
+                    },
                 }
             };
 

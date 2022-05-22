@@ -27,12 +27,15 @@ export const selectRenderingModel = createSelector(
         for (const e of Object.values(state.entries)) {
             // TODO: need to refactor it
             if (e.type === EntryType.Square) {
-                const origin = new Point(e.origin.x, e.origin.y)
-                entries.push(new Square(origin, e.size, state.extraColor, state.secondaryColor))
+                const payload = e.payload;
+                const origin = new Point(payload.origin.x, payload.origin.y)
+                entries.push(new Square(origin, payload.size, state.extraColor, state.secondaryColor))
             } else if (e.type === EntryType.Connection) {
-                entries.push(new Connection(e.from, e.to))
+                const payload = e.payload;
+                entries.push(new Connection(payload.from, payload.to))
             } else if (e.type === EntryType.Joint) {
-                entries.push(new Joint(e.origin, e.radius, state.primaryColor))
+                const payload = e.payload;
+                entries.push(new Joint(payload.origin, payload.radius, state.primaryColor))
             }
         }
 
@@ -105,8 +108,8 @@ export const selectHoveredInteractiveEntryId = createSelector(
         for (const [k, v] of Object.entries(entries)) {
             // TODO: need to refactor it
             if (v.type === EntryType.Square) {
-                if (v.origin.x < cursorX && cursorX < v.origin.x + v.size) {
-                    if (v.origin.y < cursorY && cursorY < v.origin.y + v.size) {
+                if (v.payload.origin.x < cursorX && cursorX < v.payload.origin.x + v.payload.size) {
+                    if (v.payload.origin.y < cursorY && cursorY < v.payload.origin.y + v.payload.size) {
                         return parseInt(k);
                     }
                 }
@@ -132,7 +135,7 @@ export const selectActiveEntryId = createSelector(
 export const selectActiveEntry = createSelector(
     selectActiveEntryId,
     selectEntries,
-    (id, entries): Entry => {
-        return entries[`${id}`] ?? null;
+    (id, entries) => {
+        return entries[`${id}`]?.payload ?? null;
     }
 );
