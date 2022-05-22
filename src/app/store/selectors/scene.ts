@@ -93,7 +93,18 @@ export const selectMeshOrigin = createSelector(
 );
 
 export const selectHoveredInteractiveEntryId = createSelector(
-    selectCursorPosition, selectEntries, (position, entries): number | null => {
+    selectCursorPosition, selectEntries, selectMeshOrigin, (position, entries, origin): number | null => {
+
+        for(const [k, v] of Object.entries(entries)) {
+            if (v.type === EntryType.Square) {
+                if (v.origin.x + origin.x < position.x && position.x < v.origin.x + origin.x + v.size) {
+                    if (v.origin.y + origin.y < position.y && position.y < v.origin.y + origin.y + v.size) {
+                        return parseInt(k);
+                    }
+                }
+            }
+        }
+
         return null;
     }
 );

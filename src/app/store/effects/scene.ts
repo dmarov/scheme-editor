@@ -48,9 +48,7 @@ export class SceneEffects {
                 ),
             ),
             tap(([, id]) => {
-                document.querySelector("[data-scene]")!
-                    .classList
-                    .toggle('scene--grab', id !== null)
+                console.log(id);
             })
         ), { dispatch: false },
     );
