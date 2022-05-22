@@ -7,8 +7,11 @@ import { SceneActions } from '../actions';
 export const featureKey = 'scene';
 
 export interface State {
-    drawableShapes: SerializableShapesMap;
-    interactiveShapes: SerializableShapesMap;
+    shapes: SerializableShapesMap;
+    // drawableShapes: SerializableShapesMap;
+    drawableShapes: number[];
+    // interactiveShapes: SerializableShapesMap;
+    interactiveShapes: number[];
     intToDraw: {[key: string]: number};
     primaryColor: string;
     secondaryColor: string;
@@ -26,83 +29,78 @@ export interface State {
 };
 
 export const initialState: State = {
-    drawableShapes: {
+    shapes: {
         "0": {
             type: SerializableShapeType.Collection,
             payload: {
                 origin: {x: 100, y: 100},
-                entries: [
-                    {
-                        type: SerializableShapeType.Square,
-                        payload: {
-                            origin: {x: 0, y: 0},
-                            size: 150,
-                        }
-                    },
-                    {
-                        type: SerializableShapeType.Joint,
-                        payload: {
-                            origin: {x: 150, y: 75},
-                            radius: 3,
-                        }
-                    },
-                ]
+                entries: [ 1, 2 ],
             }
         },
         "1": {
-            type: SerializableShapeType.Collection,
+            type: SerializableShapeType.Square,
             payload: {
-                origin: {x: 150, y: -250},
-                entries: [
-                    {
-                        type: SerializableShapeType.Square,
-                        payload: {
-                            origin: {x: 0, y: 0},
-                            size: 150,
-                        }
-                    }
-                ]
+                origin: {x: 0, y: 0},
+                size: 150,
             }
         },
         "2": {
+            type: SerializableShapeType.Joint,
+            payload: {
+                origin: {x: 150, y: 75},
+                radius: 3,
+            }
+        },
+        "3": {
+            type: SerializableShapeType.Collection,
+            payload: {
+                origin: {x: 150, y: -250},
+                entries: [ 4 ]
+            }
+        },
+        "4": {
+            type: SerializableShapeType.Square,
+            payload: {
+                origin: {x: 0, y: 0},
+                size: 150,
+            }
+        },
+        "5": {
             type: SerializableShapeType.Collection,
             payload: {
                 origin: {x: 350, y: 100},
-                entries: [
-                    {
-                        type: SerializableShapeType.Square,
-                        payload: {
-                            origin: {x: 0, y: 0},
-                            size: 200,
-                        }
-                    },
-                    {
-                        type: SerializableShapeType.Joint,
-                        payload: {
-                            origin: {x: 0, y: 100},
-                            radius: 3,
-                        }
-                    },
-                ]
+                entries: [ 6, 7 ]
             }
         },
-    },
-    interactiveShapes: {
-        "0": {
+        "6": {
+            type: SerializableShapeType.Square,
+            payload: {
+                origin: {x: 0, y: 0},
+                size: 200,
+            }
+        },
+        "7": {
+            type: SerializableShapeType.Joint,
+            payload: {
+                origin: {x: 0, y: 100},
+                radius: 3,
+            }
+        },
+        "8": {
             type: SerializableShapeType.Square,
             payload: {
                 origin: {x: 100, y: 100},
                 size: 150,
             }
         },
-        "1": {
+        "9": {
             type: SerializableShapeType.Square,
             payload: {
                 origin: {x: 150, y: -250},
                 size: 150,
             }
         },
-        "2": {
+        "10": {
             type: SerializableShapeType.Square,
             payload: {
                 origin: {x: 350, y: 100},
@@ -110,10 +108,101 @@ export const initialState: State = {
             }
         },
     },
+    drawableShapes: [0, 3, 5],
+    // drawableShapes: {
+    //     "0": {
+    //         type: SerializableShapeType.Collection,
+    //         payload: {
+    //             origin: {x: 100, y: 100},
+    //             entries: [
+    //                 {
+    //                     type: SerializableShapeType.Square,
+    //                     payload: {
+    //                         origin: {x: 0, y: 0},
+    //                         size: 150,
+    //                     }
+    //                 },
+    //                 {
+    //                     type: SerializableShapeType.Joint,
+    //                     payload: {
+    //                         origin: {x: 150, y: 75},
+    //                         radius: 3,
+    //                     }
+    //                 },
+    //             ]
+    //         }
+    //     },
+    //     "1": {
+    //         type: SerializableShapeType.Collection,
+    //         payload: {
+    //             origin: {x: 150, y: -250},
+    //             entries: [
+    //                 {
+    //                     type: SerializableShapeType.Square,
+    //                     payload: {
+    //                         origin: {x: 0, y: 0},
+    //                         size: 150,
+    //                     }
+    //                 }
+    //             ]
+    //         }
+    //     },
+    //     "2": {
+    //         type: SerializableShapeType.Collection,
+    //         payload: {
+    //             origin: {x: 350, y: 100},
+    //             entries: [
+    //                 {
+    //                     type: SerializableShapeType.Square,
+    //                     payload: {
+    //                         origin: {x: 0, y: 0},
+    //                         size: 200,
+    //                     }
+    //                 },
+    //                 {
+    //                     type: SerializableShapeType.Joint,
+    //                     payload: {
+    //                         origin: {x: 0, y: 100},
+    //                         radius: 3,
+    //                     }
+    //                 },
+    //             ]
+    //         }
+    //     },
+    // },
+    interactiveShapes: [8, 9 ,10],
+    // interactiveShapes: {
+    //     "0": {
+    //         type: SerializableShapeType.Square,
+    //         payload: {
+    //             origin: {x: 100, y: 100},
+    //             size: 150,
+    //         }
+    //     },
+    //     "1": {
+    //         type: SerializableShapeType.Square,
+    //         payload: {
+    //             origin: {x: 150, y: -250},
+    //             size: 150,
+    //         }
+    //     },
+    //     "2": {
+    //         type: SerializableShapeType.Square,
+    //         payload: {
+    //             origin: {x: 350, y: 100},
+    //             size: 200,
+    //         }
+    //     },
+    // },
+    // intToDraw: {
+    //     "0": 0,
+    //     "1": 1,
+    //     "2": 2,
+    // },
     intToDraw: {
-        "0": 0,
-        "1": 1,
-        "2": 2,
+        "8": 0,
+        "9": 3,
+        "10": 5,
     },
     primaryColor: '#000000',
     secondaryColor: '#616161',
@@ -191,12 +280,12 @@ export const reducer = createReducer(
             }
         })
     ),
-    on(SceneActions.setInveractiveObjectOrigin,
+    on(SceneActions.setObjectOrigin,
         (state: State, action): State => {
-            const interactiveShapes = {...state.interactiveShapes};
-            const entry = interactiveShapes[`${action.id}`];
+            const shapes = {...state.shapes};
+            const entry = shapes[`${action.id}`];
 
-            interactiveShapes[`${action.id}`] = {
+            shapes[`${action.id}`] = {
                 ...entry,
                 payload: {
                     ...entry.payload,
@@ -207,25 +296,7 @@ export const reducer = createReducer(
                 }
             };
 
-            const drawableId = state.intToDraw[`${action.id}`];
-            const drawableShapes = {...state.drawableShapes};
-
-            if (typeof drawableId !== 'undefined') {
-                const shapeEntry = drawableShapes[`${drawableId}`];
-
-                drawableShapes[`${drawableId}`] = {
-                    ...shapeEntry,
-                    payload: {
-                        ...shapeEntry.payload,
-                        origin: {
-                            x: action.origin.x,
-                            y: action.origin.y,
-                        },
-                    }
-                };
-            }
-
-            return { ...state, interactiveShapes, drawableShapes };
+            return { ...state, shapes };
         }
     ),
     on(SceneActions.setActiveEntry,
@@ -233,24 +304,5 @@ export const reducer = createReducer(
             ...state,
             activeEntryId: action.id,
         })
-    ),
-    on(SceneActions.setDrawableObjectOrigin,
-        (state: State, action): State => {
-            const drawableShapes = {...state.drawableShapes};
-            const shapeEntry = drawableShapes[`${action.id}`];
-
-            drawableShapes[`${action.id}`] = {
-                ...shapeEntry,
-                payload: {
-                    ...shapeEntry.payload,
-                    origin: {
-                        x: action.origin.x,
-                        y: action.origin.y,
-                    },
-                }
-            };
-
-            return { ...state, drawableShapes };
-        }
     ),
 );

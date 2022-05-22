@@ -9,8 +9,32 @@ export const selectState = createFeatureSelector<State>(
     featureKey
 );
 
+export const selectShapes = createSelector(
+    selectState, (state): SerializableShapesMap => {
+        return state.shapes;
+    }
+);
+
+export const selectInteractiveShapes = createSelector(
+    selectState, (state): SerializableShapesMap => {
+        return Object.fromEntries(
+            Object.entries(state.shapes)
+                .filter(([k,]) => state.interactiveShapes.includes(parseInt(k)))
+        );
+    }
+);
+
+export const selectDrawableShapes = createSelector(
+    selectState, (state): SerializableShapesMap => {
+        return Object.fromEntries(
+            Object.entries(state.shapes)
+                .filter(([k,]) => state.drawableShapes.includes(parseInt(k)))
+        );
+    }
+);
+
 export const selectRenderingModel = createSelector(
-    selectState, (state: State): Drawable => {
+    selectState, selectShapes, (state: State, shapes): Drawable => {
 
         const mesh = new Mesh(
             state.meshOrigin,
@@ -21,12 +45,19 @@ export const selectRenderingModel = createSelector(
             state.extraColor,
         );
 
-        const drawableShapes: Drawable[] = []
+        const res: Drawable[] = [];
+        const drawableShapes = Object.entries(shapes)
+            .filter(([k, v]) => state.drawableShapes.includes(parseInt(k)))
+            .map(([k, v]) => v);
 
-        for (const e of Object.values(state.drawableShapes)) {
+
+        for (const e of drawableShapes) {
             // TODO: need to refactor it
             if (e.type === SerializableShapeType.Collection) {
-                const serializableShapes: SerializableShape[] = e.payload.entries;
+                const serializableShapes: SerializableShape[] = Object.entries(shapes)
+                    .filter(([k,]) => e.payload.entries.includes(parseInt(k)))
+                    .map(([, v]) => v);
+
                 const origin: Point = e.payload.origin;
                 const drawables: Drawable[] = [];
 
@@ -43,29 +74,17 @@ export const selectRenderingModel = createSelector(
                 }
 
                 const collection = new Collection(origin, drawables);
-                drawableShapes.push(collection);
+                res.push(collection);
             }
         }
 
-        const objects = new Collection({x: 0, y: 0}, drawableShapes);
+        const objects = new Collection({x: 0, y: 0}, res);
 
         const shl = new ShiftedLayer(state.meshOrigin, objects);
         // TODO: implement scale
         const collection = new Collection({x: 0, y: 0}, [mesh, shl]);
 
         return collection;
-    }
-);
-
-export const selectShapes = createSelector(
-    selectState, (state): SerializableShapesMap => {
-        return state.drawableShapes;
-    }
-);
-
-export const selectInteractiveShapes = createSelector(
-    selectState, (state): SerializableShapesMap => {
-        return state.interactiveShapes;
     }
 );
 
@@ -115,11 +134,11 @@ export const selectMeshOrigin = createSelector(
 );
 
 export const selectHoveredInteractiveEntryId = createSelector(
-    selectCursorPosition, selectInteractiveShapes, selectMeshOrigin, (position, drawableShapes, origin): number | null => {
+    selectCursorPosition, selectInteractiveShapes, selectMeshOrigin, (position, interactiveShapes, origin): number | null => {
         const cursorX = position.x - origin.x;
         const cursorY = position.y - origin.y;
 
-        for (const [k, v] of Object.entries(drawableShapes)) {
+        for (const [k, v] of Object.entries(interactiveShapes)) {
             // TODO: need to refactor it
             if (v.type === SerializableShapeType.Square) {
                 if (v.payload.origin.x < cursorX && cursorX < v.payload.origin.x + v.payload.size) {
@@ -141,7 +160,7 @@ export const selectActiveEntryId = createSelector(
 export const selectActiveEntry = createSelector(
     selectActiveEntryId,
     selectShapes,
-    (id, drawableShapes) => {
-        return drawableShapes[`${id}`]?.payload ?? null;
+    (id, shapes) => {
+        return shapes[`${id}`]?.payload ?? null;
     }
 );

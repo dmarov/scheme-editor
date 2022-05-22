@@ -41,7 +41,7 @@ export class SceneEffects {
                     );
                 } else {
                     this.store$.dispatch(
-                        SceneActions.setInveractiveObjectOrigin({
+                        SceneActions.setObjectOrigin({
                             id,
                             origin: new Point(entry.origin.x + action.diff.x, entry.origin.y + action.diff.y)
                         })
@@ -80,9 +80,9 @@ export class SceneEffects {
         ), { dispatch: false },
     );
 
-    setInteractiveObjectOrigin$ = createEffect(
+    setObjectOrigin$ = createEffect(
         () => this.actions$.pipe(
-            ofType(SceneActions.setInveractiveObjectOrigin),
+            ofType(SceneActions.setObjectOrigin),
             withLatestFrom(
                 this.store$.pipe(
                     select(SceneSelectors.selectState)
@@ -93,7 +93,7 @@ export class SceneEffects {
 
                 if (typeof id !== 'undefined') {
                     this.store$.dispatch(
-                        SceneActions.setDrawableObjectOrigin({id, origin: action.origin})
+                        SceneActions.setObjectOrigin({id, origin: action.origin})
                     );
                 }
             })

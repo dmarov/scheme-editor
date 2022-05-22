@@ -56,16 +56,8 @@ export const tryMove = createAction(
     props<{diff: Point}>(),
 );
 
-export const setInveractiveObjectOrigin = createAction(
-    '[Scene] setInveractiveObjectOrigin',
-    props<{
-        id: number;
-        origin: Point;
-    }>(),
-);
-
-export const setDrawableObjectOrigin = createAction(
-    '[Scene] setDrawableObjectOrigin',
+export const setObjectOrigin = createAction(
+    '[Scene] setObjectOrigin',
     props<{
         id: number;
         origin: Point;
