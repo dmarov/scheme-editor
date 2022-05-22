@@ -1,4 +1,4 @@
-import { SerializableShapesMap, SerializableShapeType } from '@/app/models';
+import { SerializableShape, SerializableShapesMap, SerializableShapeType } from '@/app/models';
 import { Collection, Joint, ShiftedLayer, Square } from '@/lib';
 import { Point, Mesh } from '@/lib';
 import { Drawable } from '@/lib/interfaces';
@@ -25,21 +25,37 @@ export const selectRenderingModel = createSelector(
 
         for (const e of Object.values(state.shapes)) {
             // TODO: need to refactor it
-            if (e.type === SerializableShapeType.Square) {
-                const payload = e.payload;
-                const origin = new Point(payload.origin.x, payload.origin.y)
-                shapes.push(new Square(origin, payload.size, state.extraColor, state.secondaryColor))
-            } else if (e.type === SerializableShapeType.Joint) {
-                const payload = e.payload;
-                shapes.push(new Joint(payload.origin, payload.radius, state.primaryColor))
+            // if (e.type === SerializableShapeType.Square) {
+            //     const payload = e.payload;
+            //     const origin = new Point(payload.origin.x, payload.origin.y)
+            //     shapes.push(new Square(origin, payload.size, state.extraColor, state.secondaryColor))
+            // } else if (e.type === SerializableShapeType.Joint) {
+            //     const payload = e.payload;
+            //     shapes.push(new Joint(payload.origin, payload.radius, state.primaryColor))
+            // }
+            if (e.type === SerializableShapeType.Collection) {
+                const serializableShapes: SerializableShape[] = e.payload.entries;
+                const origin: Point = e.payload.origin;
+                const drawables: Drawable[] = [];
+
+                for (const shape of serializableShapes) {
+                    if (shape.type === SerializableShapeType.Square) {
+                        const payload = shape.payload;
+                        const origin = new Point(payload.origin.x, payload.origin.y)
+                        drawables.push(new Square(origin, payload.size, state.extraColor, state.secondaryColor))
+                    }
+                }
+
+                const collection = new Collection(origin, drawables);
+                shapes.push(collection);
             }
         }
 
-        const objects = new Collection(shapes);
+        const objects = new Collection({x: 0, y: 0}, shapes);
 
         const shl = new ShiftedLayer(state.meshOrigin, objects);
         // TODO: implement scale
-        const collection = new Collection([mesh, shl]);
+        const collection = new Collection({x: 0, y: 0}, [mesh, shl]);
 
         return collection;
     }
@@ -48,6 +64,12 @@ export const selectRenderingModel = createSelector(
 export const selectShapes = createSelector(
     selectState, (state): SerializableShapesMap => {
         return state.shapes;
+    }
+);
+
+export const selectInteractiveShapes = createSelector(
+    selectState, (state): SerializableShapesMap => {
+        return state.interactiveShapes;
     }
 );
 
@@ -97,7 +119,7 @@ export const selectMeshOrigin = createSelector(
 );
 
 export const selectHoveredInteractiveEntryId = createSelector(
-    selectCursorPosition, selectShapes, selectMeshOrigin, (position, shapes, origin): number | null => {
+    selectCursorPosition, selectInteractiveShapes, selectMeshOrigin, (position, shapes, origin): number | null => {
         const cursorX = position.x - origin.x;
         const cursorY = position.y - origin.y;
 

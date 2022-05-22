@@ -8,6 +8,8 @@ export const featureKey = 'scene';
 
 export interface State {
     shapes: SerializableShapesMap;
+    interactiveShapes: SerializableShapesMap;
+    intToDraw: {[key: string]: number};
     primaryColor: string;
     secondaryColor: string;
     extraColor: string;
@@ -26,9 +28,56 @@ export interface State {
 export const initialState: State = {
     shapes: {
         "0": {
+            type: SerializableShapeType.Collection,
+            payload: {
+                origin: {x: 100, y: 100},
+                entries: [
+                    {
+                        type: SerializableShapeType.Square,
+                        payload: {
+                            origin: {x: 0, y: 0},
+                            size: 150,
+                        }
+                    }
+                ]
+            }
+        },
+        "1": {
+            type: SerializableShapeType.Collection,
+            payload: {
+                origin: {x: 150, y: -250},
+                entries: [
+                    {
+                        type: SerializableShapeType.Square,
+                        payload: {
+                            origin: {x: 0, y: 0},
+                            size: 150,
+                        }
+                    }
+                ]
+            }
+        },
+        "2": {
+            type: SerializableShapeType.Collection,
+            payload: {
+                origin: {x: 350, y: 100},
+                entries: [
+                    {
+                        type: SerializableShapeType.Square,
+                        payload: {
+                            origin: {x: 0, y: 0},
+                            size: 200,
+                        }
+                    }
+                ]
+            }
+        },
+    },
+    interactiveShapes: {
+        "0": {
             type: SerializableShapeType.Square,
             payload: {
-                origin: {x: -200, y: 50},
+                origin: {x: 100, y: 100},
                 size: 150,
             }
         },
@@ -37,7 +86,7 @@ export const initialState: State = {
             payload: {
                 origin: {x: 150, y: -250},
                 size: 150,
-            },
+            }
         },
         "2": {
             type: SerializableShapeType.Square,
@@ -46,6 +95,11 @@ export const initialState: State = {
                 size: 200,
             }
         },
+    },
+    intToDraw: {
+        "0": 0,
+        "1": 1,
+        "2": 2,
     },
     primaryColor: '#000000',
     secondaryColor: '#616161',
@@ -125,10 +179,10 @@ export const reducer = createReducer(
     ),
     on(SceneActions.setEntryOrigin,
         (state: State, action): State => {
-            const shapes = {...state.shapes};
-            const entry = shapes[`${action.id}`];
+            const interactiveShapes = {...state.interactiveShapes};
+            const entry = interactiveShapes[`${action.id}`];
 
-            shapes[`${action.id}`] = {
+            interactiveShapes[`${action.id}`] = {
                 ...entry,
                 payload: {
                     ...entry.payload,
@@ -139,7 +193,25 @@ export const reducer = createReducer(
                 }
             };
 
-            return { ...state, shapes };
+            const drawableId = state.intToDraw[`${action.id}`];
+            const shapes = {...state.shapes};
+
+            if (typeof drawableId !== 'undefined') {
+                const shapeEntry = shapes[`${drawableId}`];
+
+                shapes[`${drawableId}`] = {
+                    ...shapeEntry,
+                    payload: {
+                        ...shapeEntry.payload,
+                        origin: {
+                            x: action.origin.x,
+                            y: action.origin.y,
+                        },
+                    }
+                };
+            }
+
+            return { ...state, interactiveShapes, shapes };
         }
     ),
     on(SceneActions.setActiveEntry,
