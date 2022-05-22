@@ -1,1 +1,3 @@
-export type EntriesMap = { [key: string]: any };
+import { Entry } from ".";
+
+export type EntriesMap = { [key: string]: Entry };

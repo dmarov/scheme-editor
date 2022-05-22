@@ -37,7 +37,7 @@ export const initialState: State = {
             payload: {
                 origin: {x: 150, y: -250},
                 size: 150,
-            }
+            },
         },
         "2": {
             type: EntryType.Square,
