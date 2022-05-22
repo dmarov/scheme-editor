@@ -94,8 +94,6 @@ export const selectMeshOrigin = createSelector(
 
 export const selectHoveredInteractiveEntryId = createSelector(
     selectCursorPosition, selectEntries, (position, entries): number | null => {
-
-        console.log(position);
         return null;
     }
 );

@@ -24,9 +24,9 @@ export class SceneEffects {
                 this.store$.pipe(
                     select(SceneSelectors.selectMeshOrigin)
                 ),
-                this.store$.pipe(
-                    select(SceneSelectors.selectHoveredInteractiveEntryId)
-                ),
+                // this.store$.pipe(
+                //     select(SceneSelectors.selectHoveredInteractiveEntryId)
+                // ),
             ),
             filter(([,pressed]) => pressed),
             tap(([action,, origin]) => {
@@ -44,22 +44,13 @@ export class SceneEffects {
             ofType(SceneActions.tryMove),
             withLatestFrom(
                 this.store$.pipe(
-                    select(SceneSelectors.selectMouseLeftPressed)
-                ),
-                this.store$.pipe(
-                    select(SceneSelectors.selectMeshOrigin)
-                ),
-                this.store$.pipe(
                     select(SceneSelectors.selectHoveredInteractiveEntryId)
                 ),
             ),
-            filter(([,pressed]) => pressed),
-            tap(([action,, origin]) => {
-                this.store$.dispatch(
-                    SceneActions.setMeshOrigin({
-                        origin: new Point(origin.x + action.diff.x, origin.y + action.diff.y)
-                    })
-                )
+            tap(([, id]) => {
+                document.querySelector("[data-scene]")!
+                    .classList
+                    .toggle('scene--grab', id !== null)
             })
         ), { dispatch: false },
     );

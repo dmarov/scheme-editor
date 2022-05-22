@@ -20,3 +20,9 @@ body {
         inset: 0;
     }
 }
+
+.scene {
+    &--grab {
+        cursor: grab;
+    }
+}
