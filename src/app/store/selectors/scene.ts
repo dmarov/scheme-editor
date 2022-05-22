@@ -120,3 +120,15 @@ export const selectHoveredInteractiveEntry = createSelector(
         return entries[`${id}`] ?? null;
     }
 );
+
+export const selectActiveEntryId = createSelector(
+    selectState, (state): number | null => state.activeEntryId
+);
+
+export const selectActiveEntry = createSelector(
+    selectActiveEntryId,
+    selectEntries,
+    (id, entries): Entry => {
+        return entries[`${id}`] ?? null;
+    }
+);

@@ -25,10 +25,10 @@ export class SceneEffects {
                     select(SceneSelectors.selectMeshOrigin)
                 ),
                 this.store$.pipe(
-                    select(SceneSelectors.selectHoveredInteractiveEntryId)
+                    select(SceneSelectors.selectActiveEntryId)
                 ),
                 this.store$.pipe(
-                    select(SceneSelectors.selectHoveredInteractiveEntry)
+                    select(SceneSelectors.selectActiveEntry)
                 ),
             ),
             filter(([,pressed]) => pressed),
@@ -47,6 +47,35 @@ export class SceneEffects {
                         })
                     );
                 }
+            })
+        ), { dispatch: false },
+    );
+
+    setActiveObject$ = createEffect(
+        () => this.actions$.pipe(
+            ofType(SceneActions.setMouseLeftPressed),
+            filter(action => action.pressed),
+            withLatestFrom(
+                this.store$.pipe(
+                    select(SceneSelectors.selectHoveredInteractiveEntryId)
+                ),
+            ),
+            tap(([, id]) => {
+                this.store$.dispatch(
+                    SceneActions.setActiveEntry({id})
+                );
+            })
+        ), { dispatch: false },
+    );
+
+    unsetActiveObject$ = createEffect(
+        () => this.actions$.pipe(
+            ofType(SceneActions.setMouseLeftPressed),
+            filter(action => !action.pressed),
+            tap(() => {
+                this.store$.dispatch(
+                    SceneActions.setActiveEntry({id: null})
+                );
             })
         ), { dispatch: false },
     );

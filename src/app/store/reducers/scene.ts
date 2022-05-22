@@ -19,7 +19,7 @@ export interface State {
     mouseLeftPressed: boolean;
     scaleFactor: number;
     pressedKeys: string[];
-    activeEntry: number | null;
+    activeEntryId: number | null;
 }
 
 export const initialState: State = {
@@ -51,7 +51,7 @@ export const initialState: State = {
     mouseLeftPressed: false,
     scaleFactor: 1,
     pressedKeys: [],
-    activeEntry: null,
+    activeEntryId: null,
 };
 
 export const reducer = createReducer(
@@ -129,5 +129,11 @@ export const reducer = createReducer(
 
             return { ...state, entries };
         }
+    ),
+    on(SceneActions.setActiveEntry,
+        (state, action): State => ({
+            ...state,
+            activeEntryId: action.id,
+        })
     ),
 );
