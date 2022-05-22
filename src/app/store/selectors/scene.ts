@@ -1,3 +1,4 @@
+import { EntryType } from '@/app/models';
 import { Collection, ShiftedLayer, Square } from '@/lib/classes';
 import { Mesh } from '@/lib/classes/mesh';
 import { Drawable } from '@/lib/interfaces';
@@ -23,9 +24,11 @@ export const selectRenderingModel = createSelector(
 
         const squares: Square[] = [];
 
-        for (const sq of Object.values(state.squares)) {
-            const origin = new Point(sq.origin.x, sq.origin.y)
-            squares.push(new Square(origin, 100, state.extraColor, state.secondaryColor))
+        for (const e of Object.values(state.entries)) {
+            if (e.type === EntryType.Square) {
+                const origin = new Point(e.origin.x, e.origin.y)
+                squares.push(new Square(origin, 100, state.extraColor, state.secondaryColor))
+            }
         }
 
         const sqs = new Collection(squares);

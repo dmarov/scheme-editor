@@ -1,5 +1,5 @@
-import { Square } from '@/app/models';
-import {SquaresMap} from '@/app/models/squares-map';
+import { EntryType } from '@/app/models';
+import { EntriesMap } from '@/app/models';
 import { Point } from '@/lib/models';
 import { createReducer, on } from '@ngrx/store';
 import { SceneActions } from '../actions';
@@ -7,7 +7,7 @@ import { SceneActions } from '../actions';
 export const featureKey = 'scene';
 
 export interface State {
-    squares: SquaresMap;
+    entries: EntriesMap;
     primaryColor: string,
     secondaryColor: string,
     extraColor: string,
@@ -22,15 +22,21 @@ export interface State {
 }
 
 export const initialState: State = {
-    squares: {
+    entries: {
         "0": {
-            origin: {x: 50, y: 50}, size: 100,
+            type: EntryType.Square,
+            origin: {x: 50, y: 50},
+            size: 100,
         },
         "1": {
-            origin: {x: 150, y: -150}, size: 100,
+            type: EntryType.Square,
+            origin: {x: 150, y: -150},
+            size: 100,
         },
         "2": {
-            origin: {x: 350, y: -100}, size: 100,
+            type: EntryType.Square,
+            origin: {x: 350, y: -100},
+            size: 100,
         },
     },
     primaryColor: '#000000',

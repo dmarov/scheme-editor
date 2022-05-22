@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { SceneActions } from '@/app/store/actions';
-import { map, mergeMap, catchError, tap, withLatestFrom, filter } from 'rxjs/operators';
-import { of } from 'rxjs';
+import { tap, withLatestFrom, filter } from 'rxjs/operators';
 import { select, Store } from '@ngrx/store';
-import {SceneSelectors} from '../selectors';
-import {Point} from '@/lib/models';
+import { SceneSelectors } from '../selectors';
+import { Point } from '@/lib/models';
 
 @Injectable()
 export class SceneEffects {
