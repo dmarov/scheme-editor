@@ -1,6 +1,8 @@
 # SchemeEditor
-
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.6.
+
+## Live demo
+Check out live demo [here](https://scheme-editor.web.app/)
 
 ## Development server
 
