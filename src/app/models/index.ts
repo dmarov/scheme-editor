@@ -1,4 +1,4 @@
 export * from './point';
-export * from './entry';
-export * from './entry-type';
-export * from './entries-map';
+export * from './serializable-shape';
+export * from './shape-type';
+export * from './serializable-shapes-map';

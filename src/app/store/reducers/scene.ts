@@ -1,5 +1,5 @@
-import { EntryType } from '@/app/models';
-import { EntriesMap } from '@/app/models';
+import { ShapeType } from '@/app/models';
+import { SerializableShapesMap } from '@/app/models';
 import { Point } from '@/lib/models';
 import { createReducer, on } from '@ngrx/store';
 import { SceneActions } from '../actions';
@@ -7,7 +7,7 @@ import { SceneActions } from '../actions';
 export const featureKey = 'scene';
 
 export interface State {
-    shapes: EntriesMap;
+    shapes: SerializableShapesMap;
     primaryColor: string;
     secondaryColor: string;
     extraColor: string;
@@ -26,21 +26,21 @@ export interface State {
 export const initialState: State = {
     shapes: {
         "0": {
-            type: EntryType.Square,
+            type: ShapeType.Square,
             payload: {
                 origin: {x: -200, y: 50},
                 size: 150,
             }
         },
         "1": {
-            type: EntryType.Square,
+            type: ShapeType.Square,
             payload: {
                 origin: {x: 150, y: -250},
                 size: 150,
             },
         },
         "2": {
-            type: EntryType.Square,
+            type: ShapeType.Square,
             payload: {
                 origin: {x: 350, y: 100},
                 size: 200,

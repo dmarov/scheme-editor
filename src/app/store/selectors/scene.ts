@@ -1,5 +1,5 @@
-import { EntriesMap, Entry, EntryType } from '@/app/models';
-import { Collection, Connection, Joint, ShiftedLayer, Square } from '@/lib/classes';
+import { SerializableShapesMap, ShapeType } from '@/app/models';
+import { Collection, Joint, ShiftedLayer, Square } from '@/lib/classes';
 import { Mesh } from '@/lib/classes/mesh';
 import { Drawable } from '@/lib/interfaces';
 import { Point } from '@/lib/models';
@@ -26,14 +26,11 @@ export const selectRenderingModel = createSelector(
 
         for (const e of Object.values(state.shapes)) {
             // TODO: need to refactor it
-            if (e.type === EntryType.Square) {
+            if (e.type === ShapeType.Square) {
                 const payload = e.payload;
                 const origin = new Point(payload.origin.x, payload.origin.y)
                 shapes.push(new Square(origin, payload.size, state.extraColor, state.secondaryColor))
-            } else if (e.type === EntryType.Connection) {
-                const payload = e.payload;
-                shapes.push(new Connection(payload.from, payload.to))
-            } else if (e.type === EntryType.Joint) {
+            } else if (e.type === ShapeType.Joint) {
                 const payload = e.payload;
                 shapes.push(new Joint(payload.origin, payload.radius, state.primaryColor))
             }
@@ -50,7 +47,7 @@ export const selectRenderingModel = createSelector(
 );
 
 export const selectShapes = createSelector(
-    selectState, (state): EntriesMap => {
+    selectState, (state): SerializableShapesMap => {
         return state.shapes;
     }
 );
@@ -107,7 +104,7 @@ export const selectHoveredInteractiveEntryId = createSelector(
 
         for (const [k, v] of Object.entries(shapes)) {
             // TODO: need to refactor it
-            if (v.type === EntryType.Square) {
+            if (v.type === ShapeType.Square) {
                 if (v.payload.origin.x < cursorX && cursorX < v.payload.origin.x + v.payload.size) {
                     if (v.payload.origin.y < cursorY && cursorY < v.payload.origin.y + v.payload.size) {
                         return parseInt(k);
