@@ -24,31 +24,21 @@ export class SceneEffects {
                 this.store$.pipe(
                     select(SceneSelectors.selectMeshOrigin)
                 ),
-                // this.store$.pipe(
-                //     select(SceneSelectors.selectHoveredInteractiveEntryId)
-                // ),
-            ),
-            filter(([,pressed]) => pressed),
-            tap(([action,, origin]) => {
-                this.store$.dispatch(
-                    SceneActions.setMeshOrigin({
-                        origin: new Point(origin.x + action.diff.x, origin.y + action.diff.y)
-                    })
-                )
-            })
-        ), { dispatch: false },
-    );
-
-    setClass$ = createEffect(
-        () => this.actions$.pipe(
-            ofType(SceneActions.tryMove),
-            withLatestFrom(
                 this.store$.pipe(
                     select(SceneSelectors.selectHoveredInteractiveEntryId)
                 ),
             ),
-            tap(([, id]) => {
-                console.log(id);
+            filter(([,pressed]) => pressed),
+            tap(([action,, origin, entryId]) => {
+                if (entryId === null) {
+                    this.store$.dispatch(
+                        SceneActions.setMeshOrigin({
+                            origin: new Point(origin.x + action.diff.x, origin.y + action.diff.y)
+                        })
+                    );
+                } else {
+                    console.log(entryId);
+                }
             })
         ), { dispatch: false },
     );
