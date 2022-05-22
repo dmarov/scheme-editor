@@ -8,17 +8,18 @@ export const featureKey = 'scene';
 
 export interface State {
     entries: EntriesMap;
-    primaryColor: string,
-    secondaryColor: string,
-    extraColor: string,
-    meshGap: number,
+    primaryColor: string;
+    secondaryColor: string;
+    extraColor: string;
+    meshGap: number;
     meshOrigin: Point;
-    viewportDimensions: Point,
+    viewportDimensions: Point;
     cursorPosition: Point;
     mouseEntered: boolean;
     mouseLeftPressed: boolean;
     scaleFactor: number;
-    pressedKeys: string[],
+    pressedKeys: string[];
+    activeEntry: number | null;
 }
 
 export const initialState: State = {
@@ -50,6 +51,7 @@ export const initialState: State = {
     mouseLeftPressed: false,
     scaleFactor: 1,
     pressedKeys: [],
+    activeEntry: null,
 };
 
 export const reducer = createReducer(

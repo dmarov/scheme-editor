@@ -30,14 +30,14 @@ export class SceneEffects {
             ),
             filter(([,pressed]) => pressed),
             tap(([action,, position, origin]) => {
-                const dx = action.position.x - position.x;
-                const dy = action.position.y - position.y;
+                // const dx = action.position.x - position.x;
+                // const dy = action.position.y - position.y;
 
-                this.store$.dispatch(
-                    SceneActions.setMeshOrigin({
-                        origin: new Point(origin.x + dx, origin.y + dy)
-                    })
-                )
+                // this.store$.dispatch(
+                //     SceneActions.setMeshOrigin({
+                //         origin: new Point(origin.x + dx, origin.y + dy)
+                //     })
+                // )
             })
         ), { dispatch: false },
     );

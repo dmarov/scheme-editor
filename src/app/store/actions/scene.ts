@@ -45,3 +45,8 @@ export const setMeshOrigin = createAction(
     '[Scene] setMeshOrigin',
     props<{origin: Point}>(),
 );
+
+export const setActiveEntry = createAction(
+    '[Scene] setActiveEntry',
+    props<{id: number | null}>(),
+);
