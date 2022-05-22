@@ -11,6 +11,7 @@ export interface State {
     primaryColor: string;
     secondaryColor: string;
     extraColor: string;
+    whiteColor: string;
     meshGap: number;
     meshOrigin: Point;
     viewportDimensions: Point;
@@ -39,10 +40,16 @@ export const initialState: State = {
             origin: {x: 550, y: -100},
             size: 200,
         },
+        "3": {
+            type: EntryType.Connection,
+            fromEntry: 0,
+            toEntry: 1,
+        },
     },
     primaryColor: '#000000',
     secondaryColor: '#616161',
     extraColor: '#c4c2c2',
+    whiteColor: '#FFFFFF',
     meshGap: 20,
     meshOrigin: {x: 700, y: 400},
     viewportDimensions: {x: 0, y: 0},
