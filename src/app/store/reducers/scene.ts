@@ -21,13 +21,13 @@ export interface State {
     scaleFactor: number;
     pressedKeys: string[];
     activeEntryId: number | null;
-}
+};
 
 export const initialState: State = {
     entries: {
         "0": {
             type: EntryType.Square,
-            origin: {x: 50, y: 50},
+            origin: {x: -200, y: 50},
             size: 150,
         },
         "1": {
@@ -37,7 +37,7 @@ export const initialState: State = {
         },
         "2": {
             type: EntryType.Square,
-            origin: {x: 550, y: -100},
+            origin: {x: 350, y: 100},
             size: 200,
         },
         "3": {
