@@ -63,7 +63,7 @@ export class AppComponent implements AfterViewInit {
             );
 
             this.store$.dispatch(
-                SceneActions.tryMoveScene({
+                SceneActions.tryMove({
                     diff: {
                         x: e.clientX - this.latestPosition.x,
                         y: e.clientY - this.latestPosition.y,

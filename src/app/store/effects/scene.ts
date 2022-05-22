@@ -16,13 +16,41 @@ export class SceneEffects {
 
     shiftLayer$ = createEffect(
         () => this.actions$.pipe(
-            ofType(SceneActions.tryMoveScene),
+            ofType(SceneActions.tryMove),
             withLatestFrom(
                 this.store$.pipe(
                     select(SceneSelectors.selectMouseLeftPressed)
                 ),
                 this.store$.pipe(
                     select(SceneSelectors.selectMeshOrigin)
+                ),
+                this.store$.pipe(
+                    select(SceneSelectors.selectHoveredInteractiveEntryId)
+                ),
+            ),
+            filter(([,pressed]) => pressed),
+            tap(([action,, origin]) => {
+                this.store$.dispatch(
+                    SceneActions.setMeshOrigin({
+                        origin: new Point(origin.x + action.diff.x, origin.y + action.diff.y)
+                    })
+                )
+            })
+        ), { dispatch: false },
+    );
+
+    setClass$ = createEffect(
+        () => this.actions$.pipe(
+            ofType(SceneActions.tryMove),
+            withLatestFrom(
+                this.store$.pipe(
+                    select(SceneSelectors.selectMouseLeftPressed)
+                ),
+                this.store$.pipe(
+                    select(SceneSelectors.selectMeshOrigin)
+                ),
+                this.store$.pipe(
+                    select(SceneSelectors.selectHoveredInteractiveEntryId)
                 ),
             ),
             filter(([,pressed]) => pressed),

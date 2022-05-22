@@ -1,4 +1,4 @@
-import { EntryType } from '@/app/models';
+import { EntriesMap, EntryType } from '@/app/models';
 import { Collection, ShiftedLayer, Square } from '@/lib/classes';
 import { Mesh } from '@/lib/classes/mesh';
 import { Drawable } from '@/lib/interfaces';
@@ -38,6 +38,12 @@ export const selectRenderingModel = createSelector(
         const collection = new Collection([mesh, shl]);
 
         return collection;
+    }
+);
+
+export const selectEntries = createSelector(
+    selectState, (state): EntriesMap => {
+        return state.entries;
     }
 );
 
@@ -83,5 +89,13 @@ export const selectCursorPosition = createSelector(
 export const selectMeshOrigin = createSelector(
     selectState, (state): Point => {
         return state.meshOrigin;
+    }
+);
+
+export const selectHoveredInteractiveEntryId = createSelector(
+    selectCursorPosition, selectEntries, (position, entries): number | null => {
+
+        console.log(position);
+        return null;
     }
 );
