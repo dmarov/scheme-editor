@@ -25,14 +25,6 @@ export const selectRenderingModel = createSelector(
 
         for (const e of Object.values(state.drawableShapes)) {
             // TODO: need to refactor it
-            // if (e.type === SerializableShapeType.Square) {
-            //     const payload = e.payload;
-            //     const origin = new Point(payload.origin.x, payload.origin.y)
-            //     drawableShapes.push(new Square(origin, payload.size, state.extraColor, state.secondaryColor))
-            // } else if (e.type === SerializableShapeType.Joint) {
-            //     const payload = e.payload;
-            //     drawableShapes.push(new Joint(payload.origin, payload.radius, state.primaryColor))
-            // }
             if (e.type === SerializableShapeType.Collection) {
                 const serializableShapes: SerializableShape[] = e.payload.entries;
                 const origin: Point = e.payload.origin;
