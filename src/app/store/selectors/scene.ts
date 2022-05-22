@@ -43,6 +43,10 @@ export const selectRenderingModel = createSelector(
                         const payload = shape.payload;
                         const origin = new Point(payload.origin.x, payload.origin.y)
                         drawables.push(new Square(origin, payload.size, state.extraColor, state.secondaryColor))
+                    } else if (shape.type === SerializableShapeType.Joint) {
+                        const payload = shape.payload;
+                        const origin = new Point(payload.origin.x, payload.origin.y)
+                        drawables.push(new Joint(origin, payload.radius, state.primaryColor));
                     }
                 }
 

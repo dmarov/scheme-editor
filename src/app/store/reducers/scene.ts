@@ -38,7 +38,14 @@ export const initialState: State = {
                             origin: {x: 0, y: 0},
                             size: 150,
                         }
-                    }
+                    },
+                    {
+                        type: SerializableShapeType.Joint,
+                        payload: {
+                            origin: {x: 150, y: 75},
+                            radius: 3,
+                        }
+                    },
                 ]
             }
         },
@@ -68,7 +75,14 @@ export const initialState: State = {
                             origin: {x: 0, y: 0},
                             size: 200,
                         }
-                    }
+                    },
+                    {
+                        type: SerializableShapeType.Joint,
+                        payload: {
+                            origin: {x: 0, y: 100},
+                            radius: 3,
+                        }
+                    },
                 ]
             }
         },
